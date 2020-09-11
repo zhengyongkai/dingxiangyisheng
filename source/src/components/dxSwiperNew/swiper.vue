@@ -1,0 +1,199 @@
+<template>
+  <div>
+    <div class="index-content" id="my">
+      <div class="banner">
+        <div ref="dom">
+          <transition-group tag="ul" class="slide-ul" name="list">
+            <li
+              v-for="(list, index) in img"
+              :key="index"
+              v-show="index === currentIndex"
+            >
+              <a>
+                <img :src="list" @mousemove="stop" @mouseout="go" />
+              </a>
+            </li>
+          </transition-group>
+        </div>
+        <div class="banner-circle">
+          <ul>
+            <li
+              v-for="(v, i) in img"
+              :key="i"
+              :class="i == currentIndex ? 'selected' : ''"
+            ></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "HelloWorld",
+  data() {
+    return {
+      img: [
+        require("./textImage/banner1.jpg"),
+        require("./textImage/banner2.png"),
+        require("./textImage/banner1.jpg"),
+        require("./textImage/banner2.png")
+      ],
+      msg: "Welcome to Your Vue.js App",
+      n: 0,
+      x: 0,
+      scrollwidth: 0,
+      start: false,
+      y: 0,
+      timer: 0,
+      currentIndex: 0
+    };
+  },
+  methods: {
+    go() {
+      alert("dasd");
+      this.fun();
+    },
+    stop() {
+      alert("dasd2");
+      clearInterval(this.timer);
+      this.timer = null;
+    },
+    fun: function() {
+      //setInterval(函数体,时间)
+      this.timer = setInterval(this.play, 3000);
+    },
+    play: function() {
+      this.currentIndex++;
+      if (this.currentIndex > this.img.length - 1) {
+        this.currentIndex = 0;
+      }
+    },
+    changeSize() {
+      // window.onresize = () => {
+      //   console.log("change");
+      //   console.log(this.$refs.dom.scrollWidth);
+      //   this.scrollwidth = this.$refs.dom.scrollWidth;
+      // };
+    }
+  },
+  mounted: function() {
+    //生命周期  钩子函数   挂载完成
+    if (this.img.length > 1) {
+      this.fun();
+    }
+    this.$nextTick(() => {
+      // this.changeSize();
+    });
+  },
+  created: function() {
+    this.$nextTick(() => {
+      // this.scrollwidth = this.$refs.dom.scrollWidth;
+      //this.x = -this.img.length * this.scrollWidth;
+    });
+  },
+  destroyed: function() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style-type: none;
+}
+body {
+  font-size: 14px;
+  background: #fff;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+html,
+body {
+  height: 100%;
+  margin: 0 auto;
+}
+
+/*index*/
+.index-content .banner {
+  position: relative;
+  img {
+    width: 100%;
+    position: relative;
+  }
+}
+.index-content .banner .banner-circle {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  color: #fff;
+}
+.index-content .banner .banner-circle li {
+  content: "";
+  height: 2px;
+  display: inline-block;
+  width: 10px;
+  background: #fff;
+  border-radius: 20px;
+  margin: 2px;
+}
+.index-content .banner .banner-circle ul {
+  text-align: center;
+}
+.index-content .banner .banner-circle .selected {
+  background: lightgreen;
+}
+.index-content .banner img {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.list-enter-to {
+  transition: all 0.5s ease;
+  transform: translateX(0);
+}
+
+.list-leave-active {
+  transition: all 0.5s ease;
+  transform: translateX(-100%);
+}
+
+.list-enter {
+  transform: translateX(100%);
+}
+
+.list-leave {
+  transform: translateX(0);
+}
+.banner {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  // 删除
+  background-color: #fff;
+}
+
+.slide-ul {
+  width: 100%;
+  height: 100%;
+  li {
+    position: absolute;
+    width: 98%;
+    margin: 0 1%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+</style>

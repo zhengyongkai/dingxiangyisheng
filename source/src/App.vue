@@ -26,7 +26,7 @@ export default {
         to.path == "/" ||
         to.path == "/baike" ||
         to.path == "/findPage" ||
-        to.path == "/minePage"
+        to.path == "/home"
       ) {
         this.tabBarShow = true;
       } else {
@@ -43,6 +43,8 @@ body {
   font-size: 16px;
   padding: 0;
   margin: 0;
+  -webkit-overflow-scrolling: touch;
+  
 }
 ::-webkit-scrollbar {
   width: 10px;

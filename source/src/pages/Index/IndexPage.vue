@@ -102,7 +102,7 @@
 
 <script>
 import { Icon } from "vant";
-import Swiper from "../../components/dxSwiper";
+import Swiper from "../../components/dxElSwiper";
 import dxAdvise from "../../components/dxAdvise";
 export default {
   name: "IndexPage",
@@ -223,6 +223,7 @@ export default {
   margin-top: 24px;
   align-items: center;
   justify-content: center;
+ // padding:0 20px;
   .wx-tab-line {
     border: 0.3px solid #f2f2f2;
     content: "";
@@ -230,7 +231,7 @@ export default {
   }
   .wx-tab-item {
     width: 33%;
-    text-align: center;
+   text-align: center;
     .wx-tab-img {
       img {
         width: 48px;
@@ -249,6 +250,7 @@ export default {
       color: #999999;
     }
   }
+  
 }
 .wx-nav {
   display: flex;

@@ -32,7 +32,7 @@ export default {
             },
             ...context.data
           }}
-          style="cursor: pointer; margin-right: 5px;display:inline-block"
+          style="cursor: pointer;display:inline-block"
         ></i>
       );
     }

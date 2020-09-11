@@ -4,9 +4,12 @@ import Vue from "vue";
 import App from "./App";
 import router from "./router";
 import { PullRefresh } from "vant";
+import 'vant/lib/icon/local.css';
 import Mui from "vue-awesome-mui";
+import dxElement from '@/components/dxElement';
 Vue.use(PullRefresh);
 Vue.use(Mui);
+Vue.use(dxElement)
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
