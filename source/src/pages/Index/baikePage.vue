@@ -32,13 +32,23 @@
     <div class="wx-tab">
       <div class="wx-tab-item">
         <div class="wx-tab-items">
-          <img src="./image/23.jpg" alt="" />
+          <img src="./image/29.png" alt="" />
         </div>
         <div class="wx-tab-items">
-          <img src="./image/24.jpg" alt="" />
+          <img src="./image/30.png" alt="" />
         </div>
         <div class="wx-tab-items">
-          <img src="./image/25.jpg" alt="" />
+          <img src="./image/31.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="wx-content">
+      <div class="wx-content-title">
+        大众健康
+      </div>
+      <div class="wx-content-items">
+        <div class="wx-content-item" v-for="(i, v) in contentList" :key="v">
+          {{ i }}
         </div>
       </div>
     </div>
@@ -52,6 +62,17 @@ export default {
     return {
       msg: "Welcome to Your Vue.js App",
       search: "",
+      contentList: [
+        "女性健康",
+        "男性健康",
+        "青少年健康",
+        "老年人健康",
+        "成年人健康",
+        "母婴健康",
+        "癌症",
+        "职业病",
+        "传染病"
+      ],
       itemList: [
         {
           img: require("./image/12.png"),
@@ -212,6 +233,38 @@ export default {
       padding: 5px;
       img {
         width: 100%;
+      }
+    }
+  }
+}
+.wx-content {
+  margin-top: 16px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  color: #656565;
+
+  letter-spacing: 1px;
+  .wx-content-title {
+    margin-bottom: 16px;
+    // font-weight: 550;
+  }
+  .wx-content-items {
+    font-weight: 540;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    .wx-content-item {
+      width: 31%;
+      height: 60px;
+      box-sizing: border-box;
+      padding: 12px 10px;
+      background-image: linear-gradient(to bottom right,#e7fef8, #E7FEF8);
+      margin-bottom: 10px;
+      box-shadow: 0px 2px 2px #eee;
+      border-radius: 5px;
+      &:nth-child(3n-1) {
+        margin: 0 10px;
       }
     }
   }
