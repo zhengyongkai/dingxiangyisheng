@@ -32,19 +32,16 @@
     </div>
     <div class="wx-cell">
       <div class="wx-cell-item">
-         <dx-cell :desc="'兑换礼品和优惠券'" > 
-            <div slot="title" class="cell-title">
-              丁香豆
-            </div>
-         </dx-cell>
-          <dx-cell :title="'私人医生'" > 
-         </dx-cell>
-          <dx-cell :title="'患者信息'" > 
-         </dx-cell>
-          <dx-cell :title="'设置'" > 
-         </dx-cell>
-         <dx-cell :title="'联系客服'" > 
-         </dx-cell>
+        <dx-cell :desc="'兑换礼品和优惠券'">
+          <div slot="title" class="cell-title">
+            <div class="cell-title-text">丁香豆</div>
+            <div class="cell-title-tag">免费送礼</div>
+          </div>
+        </dx-cell>
+        <dx-cell :title="'私人医生'"> </dx-cell>
+        <dx-cell :title="'患者信息'"> </dx-cell>
+        <dx-cell :title="'设置'"> </dx-cell>
+        <dx-cell :title="'联系客服'"> </dx-cell>
       </div>
     </div>
   </div>
@@ -210,5 +207,26 @@ export default {
   border-bottom: 1px solid #c9cbce;
   -webkit-transform: scaleY(0.5);
   transform: scaleY(0.5);
+}
+.cell-title {
+  display: flex;
+  align-items: center;
+  .cell-title-text {
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    font-size: 16px;
+  }
+   .cell-title-tag{
+     margin-left: 8px;
+     font-size: 12px;
+     color: #fff;
+     background:#0bBD89;
+    line-height: 18px;
+    width: 60px;
+    font-weight: lighter;
+     text-align: center;
+     height: 18px;
+     border-radius: 2px;
+   }
 }
 </style>
