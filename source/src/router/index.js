@@ -4,6 +4,7 @@ import HelloWorld from "@/components/HelloWorld";
 import Index from "@/pages/index/IndexPage";
 import BaikePage from "@/pages/index/baikePage";
 import HomePage from "@/pages/index/HomePage";
+import wysPage from "@/pages/baike/wysPage";
 Vue.use(Router);
 
 export default new Router({
@@ -12,6 +13,7 @@ export default new Router({
       path: "/",
       name: "HelloWorld",
       component: Index
+      // component: Index
     },
     {
       path: "/index",
@@ -27,6 +29,12 @@ export default new Router({
       path: "/home",
       name: "home",
       component: HomePage
+    },
+    {
+      path: "/wyspage",
+      name: "HelloWorld",
+      component: wysPage
+      // component: Index
     }
   ]
 });
