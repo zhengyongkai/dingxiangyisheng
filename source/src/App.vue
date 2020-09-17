@@ -38,13 +38,21 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "fangping";
+  src: url("~@/assets/fonts/fangping.ttf");
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "fangping";
+}
 html,
 body {
   font-size: 16px;
   padding: 0;
   margin: 0;
   -webkit-overflow-scrolling: touch;
-  
 }
 ::-webkit-scrollbar {
   width: 10px;

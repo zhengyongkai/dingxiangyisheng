@@ -251,7 +251,7 @@ export default {
   }
   .wx-content-items {
     font-weight: 540;
-    font-size: 16px;
+    font-size: 14px;
     display: flex;
     flex-wrap: wrap;
     .wx-content-item {
