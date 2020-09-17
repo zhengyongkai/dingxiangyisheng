@@ -17,7 +17,7 @@
             <div class="wx-tab-descrpation">按科室找医生</div>
           </div>
           <div class="wx-tab-line"></div>
-          <div class="wx-tab-item">
+          <div class="wx-tab-item" @click="goto('wyspage')">
             <div class="wx-tab-img"><img src="./image/2.png" alt="" /></div>
             <div class="wx-tab-text">1元问</div>
             <div class="wx-tab-descrpation">三甲名医</div>
@@ -136,6 +136,9 @@ export default {
     "dx-advise": dxAdvise
   },
   methods: {
+    goto(path){
+      this.$router.push('/'+path)
+    },
     onRefresh() {
       setTimeout(() => {
         this.isLoading = false;
