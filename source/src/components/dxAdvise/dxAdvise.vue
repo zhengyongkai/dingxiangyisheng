@@ -45,7 +45,7 @@ export default {
 }
 .adviseCard {
   box-shadow: 0px 7px 8px rgba(34, 25, 25, 0.2);
-  height: 220px;
+  height: 250px;
 
   background-size: 100% 100%;
   border-radius: 10px;
