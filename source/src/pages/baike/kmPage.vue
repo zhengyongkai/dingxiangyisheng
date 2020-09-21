@@ -1,0 +1,305 @@
+<template>
+  <div class="km-page" :style="temperData != 0 ? 'overflow: hidden;':''">
+    <div class="km-title">
+      <dxHeader :titleName="'皮肤科'"></dxHeader>
+    </div>
+    <div class="km-body">
+      <div class="km-search">
+        <dxSearch></dxSearch>
+      </div>
+      <div class="km-tabs">
+        <div class="km-tab shadow" v-for="(i, v) in list" :key="v">
+          {{ i.name }}
+        </div>
+      </div>
+      <div class="km-advise">
+        <img src="@/assets/advise/km.png" />
+      </div>
+      <div class="km-menuArea" ref="menuArea" :style="height" >
+        <div class="km-menudown">
+          <div class="km-menuItem" @click="showMenu(1)">
+            <span
+              :class="temperData == 1 ? 'km-menuTitle-show' : 'km-menuTitle'"
+              >综合排序</span
+            >
+          </div>
+          <div class="km-menuItem" @click="showMenu(2)">
+            <span
+              :class="temperData == 2 ? 'km-menuTitle-show' : 'km-menuTitle'"
+              >全国</span
+            >
+          </div>
+          <div class="km-menuItem" @click="showMenu(3)">
+            <span
+              :class="temperData == 3 ? 'km-menuTitle-show' : 'km-menuTitle'"
+            >
+              医生擅长</span
+            >
+          </div>
+          <div class="km-menuItem" @click="showMenu(4)">
+            <span
+              :class="temperData == 4 ? 'km-menuTitle-show' : 'km-menuTitle'"
+              >筛选</span
+            >
+          </div>
+        </div>
+        <div class="km-menuItem-content" v-show="showMenuCover" >
+          <div class="km-menu-items">
+            <div class="km-menu-item">
+              综合排序
+            </div>
+            <div class="km-menu-item">
+              回答次数
+            </div>
+            <div class="km-menu-item">
+              星级评分
+            </div>
+            <div class="km-menu-item">
+              响应时间
+            </div>
+          </div>
+        </div>
+        <div
+          class="km-cover"
+          @touchmove.prevent
+          v-show="showMenuCover"
+          @click="unshowMenuCover"
+        ></div>
+      </div>
+      <div class="km-content"  :style="'marginTop:' + marginTop + 'px'">
+        dasdsad
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      showMenuCover: false,
+      temperData: 0,
+      height: "position: relative;height:48px",
+      temperHeight: 0,
+      marginTop: 0,
+      list: [
+        {
+          name: "痤疮痘痘"
+        },
+        {
+          name: "湿疹"
+        },
+        {
+          name: "过敏"
+        },
+        {
+          name: "脚气"
+        },
+        {
+          name: "麻疹"
+        }
+      ]
+    };
+  },
+  created() {
+    this.$nextTick(() => {
+      console.log(this.$refs.menuArea.getBoundingClientRect().top);
+      console.log(document.documentElement.clientHeight);
+      this.temperHeight =
+        document.documentElement.clientHeight -
+        this.$refs.menuArea.getBoundingClientRect().top;
+      window.addEventListener("scroll", this.handleScroll, true);
+    });
+  },
+  methods: {
+    showMenu(index) {
+      this.showMenuCover = true;
+      if (this.temperData == index) {
+        this.showMenuCover = false;
+        this.temperData = 0;
+        this.height = "position: relative;height:48px";
+        this.marginTop = 0;
+      } else {
+        this.temperData = index;
+
+        this.temperHeight =
+          document.documentElement.clientHeight -
+          this.$refs.menuArea.getBoundingClientRect().top;
+        this.height = "position: absolute;height:" + this.temperHeight + "px";
+        this.marginTop = 60;
+      }
+    },
+    unshowMenuCover() {
+      this.temperData = 0;
+      this.showMenuCover = false;
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+.km-body {
+  position: relative;
+
+  top: 60px;
+}
+.km-search {
+  padding: 0 12px;
+}
+.km-tabs {
+  padding: 0 12px;
+  margin-top: 24px;
+  display: -webkit-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: auto;
+  align-items: center;
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  .km-tab {
+    height: 40px;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 80px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #eee;
+    margin-right: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+  }
+}
+.km-advise {
+  margin-top: 24px;
+  padding: 0 12px;
+  img {
+    height: 48px;
+    width: 100%;
+    border-radius: 4px;
+  }
+}
+.km-menudown {
+  display: -webkit-flex;
+  display: flex;
+  height: 48px;
+  background-color: #fff;
+  //box-shadow: 0 2px 12px rgba(100, 101, 102, 0.12);
+  border-bottom: 1px solid #eee;
+  z-index: 202;
+  background: #fff;
+  .km-menuItem {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    z-index: 203;
+    -webkit-box-flex: 1;
+    position: relative;
+    -webkit-flex: 1;
+    font-weight: 600;
+    background-color: #fff;
+    flex: 1;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    min-width: 0;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+  }
+  .km-menuTitle,
+  .km-menuTitle-show {
+    position: relative;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 0 8px;
+    color: #323233;
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .km-menuTitle::after {
+    position: absolute;
+    top: 50%;
+    right: -1px;
+    margin-top: -5px;
+    border: 3px solid;
+    border-color: transparent transparent #dcdee0 #dcdee0;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    opacity: 0.8;
+    content: "";
+    margin-right: -3px;
+  }
+  .km-menuTitle-show::after {
+    position: absolute;
+    top: 50%;
+    right: -1px;
+    margin-top: -1px;
+    border: 3px solid;
+    border-color: transparent transparent #dcdee0 #dcdee0;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    opacity: 0.8;
+    content: "";
+    margin-right: -3px;
+  }
+}
+.km-cover {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  height: 100%;
+  z-index: 200;
+  width: 100%;
+  bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all 2s;
+}
+.km-menuArea {
+  margin-top: 8px;
+  right: 0;
+  left: 0;
+  //bottom: 50px;
+  z-index: 10;
+  overflow: hidden;
+}
+.shadow {
+  box-shadow: 0px 2px 8px #eee;
+}
+.km-menuItem-content {
+  padding: 0 12px;
+  position: absolute;
+  overflow-x: hidden;
+  top: 48px;
+  width: 100%;
+  left: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-height: 100%;
+  z-index: 201;
+  background: #fff;
+  transition: all 2s;
+  animation-duration: 0.2s;
+}
+.km-menuItem-content::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #eee;
+}
+.km-menuItem-content::-webkit-scrollbar {
+  width: 5px;
+  height: 1px;
+}
+.km-menu-items {
+  font-size: 14px;
+  .km-menu-item {
+    padding: 14px 8px;
+    border-bottom: 1px solid #eee;
+  }
+}
+.km-height-change {
+  max-height: 100%;
+}
+.km-content{
+  height: 500px;
+}
+</style>

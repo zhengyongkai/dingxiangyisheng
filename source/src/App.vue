@@ -60,11 +60,14 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: rgb(175, 74, 240);
+  background-color: transparent;
 }
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   background: #ededed;
   border-radius: 5px;
+} */
+.shadow{
+     box-shadow: 0px 2px 2px #eee;
 }
 </style>

@@ -4,14 +4,7 @@
       <dxHeader :titleName="'问医生'"></dxHeader>
     </div>
     <div class="wys-body">
-      <div class="wys-search">
-        <div class="wx-index-search">
-          <div class="icon">
-            <img src="../Index/image/search.png" class="search-icon" />
-          </div>
-          <input v-model="search" placeholder="症状、医生、科室、医院、疾病" />
-        </div>
-      </div>
+      <dxSearch></dxSearch>
       <div class="wx-pormise-tab">
         <div class="wx-promise-left">
           <div class="wx-promise-left-title">
@@ -60,7 +53,7 @@
           常见科室
         </div>
         <div class="wx-tk-tabs">
-          <div class="wx-tk-tab" v-for="(i, v) in keList" :key="v">
+          <div class="wx-tk-tab" v-for="(i, v) in keList" :key="v" @click="goKe">
             <div><img :src="i.img" alt="" /></div>
             <div>{{ i.name }}</div>
           </div>
@@ -121,6 +114,11 @@ export default {
         }
       ]
     };
+  },
+  methods:{
+    goKe(){
+      this.$router.push('/kmPage')
+    }
   }
 };
 </script>
@@ -129,43 +127,6 @@ export default {
   position: relative;
   padding: 0 12px;
   top: 60px;
-}
-.wx-index-search {
-  display: flex;
-  height: 40px;
-  border: 1px solid #eaeaea;
-  -webkit-box-shadow: 0px 5px 5px #f5f5f5;
-  -moz-box-shadow: 0px 5px 5px #f5f5f5;
-  box-shadow: 0px 5px 5px #f5f5f5;
-  border-radius: 20px;
-  .icon {
-    width: 30px;
-    margin: 5px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    .search-icon {
-      width: 20px;
-      height: 20px;
-      color: #e4e4e4;
-    }
-  }
-  input {
-    flex: 1;
-    width: 100%;
-    border: 0;
-    outline: none; // 去除选中状态边框
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    background-color: transparent;
-    cursor: text;
-    margin: 0em;
-    padding: 10px 0 10px 0;
-    overflow: hidden;
-  }
 }
 .wx-pormise-tab {
   margin-top: 16px;
@@ -251,24 +212,5 @@ export default {
     }
   }
 }
-::-webkit-input-placeholder {
-  /* WebKit browsers */
-  color: #b8b7b7;
-  text-decoration: underline;
-  font-size: 16px;
-}
 
-::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-  color: #b8b7b7;
-  text-decoration: underline;
-  font-size: 16px;
-}
-
-:-ms-input-placeholder {
-  /* Internet Explorer 10+ */
-  color: #b8b7b7;
-  text-decoration: underline;
-  font-size: 16px;
-}
 </style>
