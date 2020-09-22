@@ -123,11 +123,11 @@ export default {
 }
 .km-search {
   background: #fff;
-  padding: 12px 0;
+  padding: 12px ;
   z-index: 300;
   position: fixed;
-  left: 12px;
-  right: 12px;
+  left: 0;
+  right: 0;
   top: 46px;
   //padding: 0 12px;
 }
@@ -278,7 +278,7 @@ export default {
   position: relative;
 
   .km-content-body {
-    height: 500px;
+    height: 800px;
   }
   .km-cover {
     position: absolute;
