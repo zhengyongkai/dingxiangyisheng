@@ -16,58 +16,72 @@
         <div class="km-advise">
           <img src="@/assets/advise/km.png" />
         </div>
-        <div class="km-menuArea">
-          <div class="km-menudown">
-            <div class="km-menuItem" @click="showMenu(1)">
-              <span
-                :class="temperData == 1 ? 'km-menuTitle-show' : 'km-menuTitle'"
-                >综合排序</span
-              >
-            </div>
-            <div class="km-menuItem" @click="showMenu(2)">
-              <span
-                :class="temperData == 2 ? 'km-menuTitle-show' : 'km-menuTitle'"
-                >全国</span
-              >
-            </div>
-            <div class="km-menuItem" @click="showMenu(3)">
-              <span
-                :class="temperData == 3 ? 'km-menuTitle-show' : 'km-menuTitle'"
-              >
-                医生擅长</span
-              >
-            </div>
-            <div class="km-menuItem" @click="showMenu(4)">
-              <span
-                :class="temperData == 4 ? 'km-menuTitle-show' : 'km-menuTitle'"
-                >筛选</span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="km-content-item">
-           <div class="km-content" v-show="showMenuCover">
-            <div class="km-menu-items">
-              <div class="km-menu-item">
-                综合排序
+
+        <van-sticky offset-top="100px" style="z-index:999;!important">
+          <div class="km-menuArea" style="z-index:999">
+            <div class="km-menudown">
+              <div class="km-menuItem" @click="showMenu(1)">
+                <span
+                  :class="
+                    temperData == 1 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                  >综合排序</span
+                >
               </div>
-              <div class="km-menu-item">
-                回答次数
+              <div class="km-menuItem" @click="showMenu(2)">
+                <span
+                  :class="
+                    temperData == 2 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                  >全国</span
+                >
               </div>
-              <div class="km-menu-item">
-                星级评分
+              <div class="km-menuItem" @click="showMenu(3)">
+                <span
+                  :class="
+                    temperData == 3 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                >
+                  医生擅长</span
+                >
               </div>
-              <div class="km-menu-item">
-                响应时间
+              <div class="km-menuItem" @click="showMenu(4)">
+                <span
+                  :class="
+                    temperData == 4 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                  >筛选</span
+                >
               </div>
             </div>
           </div>
-          <div class="km-content-body">dfsf</div>
+          <div class="km-content-item" style="z-index:999">
+            <div class="km-content" v-show="showMenuCover">
+              <div class="km-menu-items">
+                <div class="km-menu-item">
+                  综合排序
+                </div>
+                <div class="km-menu-item">
+                  回答次数
+                </div>
+                <div class="km-menu-item">
+                  星级评分
+                </div>
+                <div class="km-menu-item">
+                  响应时间
+                </div>
+              </div>
+            </div>
+          </div>
+        </van-sticky>
+
+        <div class="km-content-body">
           <div
             class="km-cover"
             v-show="showMenuCover"
             @click="unshowMenuCover"
           ></div>
+          dfsf
         </div>
       </div>
     </div>
@@ -98,7 +112,24 @@ export default {
       ]
     };
   },
+  watch: {
+    showMenuCover(val) {
+      if (val) {
+        document.getElementsByTagName("body")[0].classList.add("hidden");
+      } else {
+        document.getElementsByTagName("body")[0].classList.remove("hidden");
+      }
+    }
+  },
   methods: {
+    fixBool(ref) {
+      console.log(ref);
+      // if(ref.isFixed){
+      //    document.getElementsByTagName("body")[0].classList.add("hidden");
+      // }else{
+      //    document.getElementsByTagName("body")[0].classList.add("hidden");
+      // }
+    },
     showMenu(index) {
       this.showMenuCover = true;
       if (this.temperData == index) {
@@ -106,6 +137,7 @@ export default {
         this.temperData = 0;
       } else {
         this.temperData = index;
+        console.log(document.getElementsByTagName("body"));
       }
     },
     unshowMenuCover() {
@@ -121,9 +153,11 @@ export default {
 
   top: 130px;
 }
+.km-page {
+}
 .km-search {
   background: #fff;
-  padding: 12px ;
+  padding: 12px;
   z-index: 300;
   position: fixed;
   left: 0;
@@ -241,13 +275,14 @@ export default {
   //bottom: 50px;
   z-index: 10;
   overflow: hidden;
+  overflow-y: auto;
 }
 .shadow {
   box-shadow: 0px 2px 8px #eee;
 }
 .km-content {
   padding: 0 12px;
-  position: absolute;
+  //position: absolute;
   overflow-x: hidden;
   width: 100%;
   left: 0;
@@ -275,21 +310,21 @@ export default {
   }
 }
 .km-content-item {
+}
+.km-content-body {
+  height: 800px;
   position: relative;
-
-  .km-content-body {
-    height: 800px;
-  }
-  .km-cover {
-    position: absolute;
-    top: 48px;
-    left: 0;
-    height: 100%;
-    z-index: 200;
-    width: 100%;
-    bottom: 50px;
-    background-color: rgba(0, 0, 0, 0.7);
-    transition: all 2s;
-  }
+}
+.km-cover {
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  z-index: 200;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all 2s;
+}
+/deep/ .van-sticky--fixed{
+  z-index: 999;
 }
 </style>

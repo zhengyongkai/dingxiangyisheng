@@ -70,4 +70,7 @@ body {
 .shadow{
      box-shadow: 0px 2px 2px #eee;
 }
+.hidden{
+  overflow: hidden;
+}
 </style>
