@@ -55,8 +55,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 1px;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;

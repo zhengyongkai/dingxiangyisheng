@@ -25,7 +25,9 @@ module.exports = {
     extensions: [".js", ".vue", ".json"],
     alias: {
       vue$: "vue/dist/vue.esm.js",
-      "@": resolve("src")
+      "@": resolve("src"),
+      "@c":resolve("src/components"),
+      "@m":resolve('src/mock')
     }
   },
   module: {
@@ -83,4 +85,5 @@ module.exports = {
     tls: "empty",
     child_process: "empty"
   }
+  
 };
