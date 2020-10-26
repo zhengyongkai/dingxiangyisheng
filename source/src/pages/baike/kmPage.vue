@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="menuitem" v-show="temperData != 0" @click="unshowMenuCover">
-      <div class="km-content-item" v-show="temperData == 1" >
+      <div class="km-content-item" v-show="temperData == 1">
         <div class="km-content" @click.stop>
           <div class="km-menu-items">
             <div class="km-menu-item">
@@ -64,37 +64,47 @@
             </div>
           </div>
         </div>
-        
       </div>
       <div class="km-content-item" v-show="temperData == 2">
         <div class="km-content" @click.stop>
           <div class="km-content-country">
             <div class="km-menu-items-left">
               <dxScroll>
-                <div :key="v" v-for="(i, v) in country" @click="changeCity(v)">
+                <div
+                  :key="v"
+                  v-for="(i, v) in country"
+                  @click="changeCity(v)"
+                  class="area"
+                  :class="v == countrySelect ? 'countrySelect' : ''"
+                >
                   {{ i.name }}
                 </div>
               </dxScroll>
             </div>
 
             <div class="km-menu-items-right">
-              <div :key="v" v-for="(i, v) in city">
+              <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
                 {{ i }}
               </div>
             </div>
           </div>
         </div>
       </div>
-     
+      <div class="km-content-item" v-show="temperData == 3">
+        <div class="km-content" @click.stop >
+           <div class="km-content-tab">
+              <div v-for="(i,v) in list" :key="v">{{i.name}}</div>
+           </div>
+        </div>
+      </div>
     </div>
     <dxScroll class="km-body">
-      <div style="height:800px">
+      <div>
         <div>
           ddd
         </div>
       </div>
     </dxScroll>
-    
   </div>
 </template>
 <script>
@@ -105,6 +115,7 @@ export default {
       showMenuCover: false,
       temperData: 0,
       country: country,
+      countrySelect: "",
       city: "",
       list: [
         {
@@ -151,6 +162,10 @@ export default {
     changeCity(i) {
       console.log(this.country[i].city[0].area);
       this.city = this.country[i].city[0].area;
+      this.countrySelect = i;
+    },
+    areaSelect(data) {
+      this.$notify(data);
     }
   }
 };
@@ -162,7 +177,6 @@ export default {
   top: 161px;
   padding: 9px 0;
   bottom: 0;
-  background: lightgray;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -308,7 +322,6 @@ export default {
   animation-duration: 0.2s;
   .km-content-country {
     display: flex;
-    background-color: #fff;
     .km-menu-items-left {
       position: absolute;
       height: 100%;
@@ -316,20 +329,22 @@ export default {
       bottom: 0;
       z-index: inherit;
       left: 0;
-      padding: 0 10px;
+      padding: 0;
       overflow: scroll;
-      width: 100px;
-      background: #fff;
+      width: 150px;
+      background: #eee;
     }
     .km-menu-items-left div {
       font-size: 16px;
       height: 50px;
+      text-align: left;
       line-height: 50px;
     }
     .km-menu-items-right {
       position: absolute;
       right: 0;
-      left: 100px;
+      left: 150px;
+      padding: 0 10px;
       top: 0;
       bottom: 0;
       overflow: scroll;
@@ -381,5 +396,26 @@ export default {
   top: 161px;
   bottom: 0;
   overflow: scroll;
+}
+.countrySelect {
+  background-color: #fff;
+  color: #16dc16;
+}
+.area {
+  padding: 0 10px;
+}
+.km-content-tab{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.km-content-tab div{
+  min-width: 50px;
+  text-align: center;
+  padding: 1px 5px;
+  background-color: #cbcbcb;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  color: #fff;
 }
 </style>
