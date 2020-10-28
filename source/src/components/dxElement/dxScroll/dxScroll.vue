@@ -70,7 +70,9 @@ export default {
       this.scroll && this.scroll.disable();
     },
     refresh() {
-      this.scroll && this.scroll.refresh();
+      setTimeout(()=>{
+         this.scroll && this.scroll.refresh();
+      },300)
     },
     scrollTo() {
       this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);

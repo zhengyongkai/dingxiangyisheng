@@ -7,11 +7,11 @@ import { PullRefresh } from "vant";
 import "vant/lib/icon/local.css";
 import Mui from "vue-awesome-mui";
 import dxElement from "@/components/dxElement";
-import { Notify } from "vant";
+import { Notify,Toast } from "vant";
 Vue.use(PullRefresh);
 Vue.use(Mui);
 Vue.use(dxElement);
-Vue.use(Notify);
+Vue.use(Notify).use(Toast);
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({

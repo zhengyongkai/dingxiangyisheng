@@ -27,7 +27,8 @@ module.exports = {
       vue$: "vue/dist/vue.esm.js",
       "@": resolve("src"),
       "@c":resolve("src/components"),
-      "@m":resolve('src/mock')
+      "@m":resolve('src/mock'),
+      "@u":resolve('src/utils')
     }
   },
   module: {

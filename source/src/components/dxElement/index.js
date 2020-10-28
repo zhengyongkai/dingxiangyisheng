@@ -7,6 +7,7 @@ import Navbar from "./vanNavbar";
 import dxSearch from "./dxSearch";
 import Sticky  from './dxStiky' 
 import dxScroll from './dxScroll'
+import dxUpload from './dxUpload'
 import "vant/lib/index.css";
 import "vant/lib/icon/local.css";
 const components = [
@@ -18,7 +19,8 @@ const components = [
   Navbar,
   dxSearch,
   Sticky,
-  dxScroll
+  dxScroll,
+  dxUpload
 ];
 export default {
   install(Vue) {

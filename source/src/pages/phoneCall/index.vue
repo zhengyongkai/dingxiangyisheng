@@ -3,14 +3,14 @@
     <div class="km-title">
       <dxHeader :titleName="'电话急诊'"></dxHeader>
     </div>
-    <dxScroll class="km-body">
+    <dxScroll class="km-body" ref="scroll">
       <div>
         <div class="km-advise">
           <img src="@/assets/advise/dhjz.png" />
         </div>
         <div class="km-form">
           <div class="km-textarea">
-            <textarea></textarea>
+            <textarea placeholder="请输入你的具体病症。"></textarea>
           </div>
           <div class="km-form-title">
             <div>快速描述常见疾病</div>
@@ -21,19 +21,21 @@
             </div>
           </div>
           <div class="km-form-upload">
-            www
+            <dxUpload @onChange="change"></dxUpload>
           </div>
+          {{ a }}
         </div>
       </div>
     </dxScroll>
     <div class="km-footer">
-      <div class="km-footer-submit">
+      <div class="km-footer-submit" @click="takePhoto">
         下一步
       </div>
     </div>
   </div>
 </template>
 <script>
+import { takePhoto } from "@u/android";
 export default {
   name: "index",
   data() {
@@ -48,11 +50,43 @@ export default {
         "产后恢复",
         "产后焦虑",
         "阴道炎"
-      ]
+      ],
+      a: "xx"
     };
   },
   components: {},
-  watch: {}
+  watch: {},
+  methods: {
+    // takePhoto() {
+    //   var cameraOptions = {
+    //     quality: 75,
+    //     destinationType: Camera.DestinationType.DATA_URL,
+    //     sourceType: Camera.PictureSourceType.CAMERA, //照相机类型
+    //     allowEdit: true,
+    //     encodingType: Camera.EncodingType.JPEG,
+    //     targetWdith: 100,
+    //     targetHeight: 100,
+    //     popoverOptions: CameraPopoverOptions,
+    //     saveToPhotoAlbum: false
+    //   };
+    //   console.log("调用拍照接口");
+    //   navigator.camera.getPicture(
+    //     onCameraSuccess,
+    //     onCameraError,
+    //     cameraOptions
+    //   );
+    //   function onCameraSuccess(imageURL) {
+    //     console.log("onCameraSuccess:" + imageURL);
+    //     this.a = 'dddd';
+    //   }
+    //   function onCameraError(e) {
+    //     this.a = e;
+    //   }
+    // },
+    change() {
+      console.log(this.$refs.scroll.refresh());
+    },
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -61,16 +95,14 @@ export default {
 }
 .km-body {
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   overflow: hidden;
   padding: 0;
   top: 46px;
-  overflow-x: hidden;
-  overflow-y: hidden;
   .km-advise {
     img {
       width: 100%;
-      height: 150px;
+      height: 100%;
     }
   }
 }
@@ -115,19 +147,19 @@ export default {
     width: 100%;
   }
 }
-.km-footer{
+.km-footer {
   position: fixed;
   border-top: 1px solid #eee;
   bottom: 0;
   width: 100%;
   text-align: center;
   height: 50px;
-  .km-footer-submit{
-    margin: 5px 12px ;
-      height: 40px;
-      line-height: 40px;
-      border-radius: 16px;
-      color: #fff;
+  .km-footer-submit {
+    margin: 5px 12px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 16px;
+    color: #fff;
     background-color: #00ea70;
   }
 }
