@@ -32,7 +32,7 @@
         <div class="wx-nav">
           <div class="wx-nav-item">
             <div class="wx-nav-icon"><img src="./image/4.png" alt="" /></div>
-            <div class="wx-nav-text">电话急诊</div>
+            <div class="wx-nav-text" @click="goto('phonecall')">电话急诊</div>
           </div>
           <div class="wx-nav-item">
             <div class="wx-nav-icon"><img src="./image/5.png" alt="" /></div>

@@ -6,6 +6,7 @@ import BaikePage from "@/pages/index/baikePage";
 import HomePage from "@/pages/index/HomePage";
 import wysPage from "@/pages/baike/wysPage";
 import kmPage from "@/pages/baike/kmPage"; 
+import phoneCallPage from "@/pages/phoneCall/index"; 
 Vue.use(Router);
 
 export default new Router({
@@ -40,6 +41,11 @@ export default new Router({
       path: "/kmPage",
       name: "kmPage",
       component: kmPage
+    },
+    {
+      path: "/phonecall",
+      name: "phoneCall",
+      component: phoneCallPage
     }
   ]
 });

@@ -46,8 +46,8 @@
         </div>
       </div>
     </div>
-    <div class="menuitem" v-show="temperData != 0" @click="unshowMenuCover">
-      <div class="km-content-item" v-show="temperData == 1">
+    <div class="menuitem" v-if="temperData != 0" @click="unshowMenuCover">
+      <div class="km-content-item" v-if="temperData == 1">
         <div class="km-content" @click.stop>
           <div class="km-menu-items">
             <div class="km-menu-item">
@@ -65,23 +65,20 @@
           </div>
         </div>
       </div>
-      <div class="km-content-item" v-show="temperData == 2">
+      <div class="km-content-item" v-if="temperData == 2">
         <div class="km-content" @click.stop>
           <div class="km-content-country">
             <div class="km-menu-items-left">
-              <dxScroll>
-                <div
-                  :key="v"
-                  v-for="(i, v) in country"
-                  @click="changeCity(v)"
-                  class="area"
-                  :class="v == countrySelect ? 'countrySelect' : ''"
-                >
-                  {{ i.name }}
-                </div>
-              </dxScroll>
+              <div
+                :key="v"
+                v-for="(i, v) in country"
+                @click="changeCity(v)"
+                class="area"
+                :class="v == countrySelect ? 'countrySelect' : ''"
+              >
+                {{ i.name }}
+              </div>
             </div>
-
             <div class="km-menu-items-right">
               <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
                 {{ i }}
@@ -90,18 +87,73 @@
           </div>
         </div>
       </div>
-      <div class="km-content-item" v-show="temperData == 3">
-        <div class="km-content" @click.stop >
-           <div class="km-content-tab">
-              <div v-for="(i,v) in list" :key="v">{{i.name}}</div>
-           </div>
+      <div class="km-content-item" v-if="temperData == 3">
+        <div class="km-content" @click.stop>
+          <div class="km-content-tab">
+            <div v-for="(i, v) in list" :key="v">{{ i.name }}</div>
+          </div>
         </div>
       </div>
     </div>
     <dxScroll class="km-body">
       <div>
         <div>
-          ddd
+          <div class="doctor-content">
+            <div v-for="(v, i) in 10" :key="i" class="doctor-items">
+              <div class="doctor-item">
+                <div class="doctor-img">
+                  <img src="@/assets/mockimg/zyk.jpg" alt="" />
+                </div>
+                <div class="doctor-info">
+                  <div class="doctor-top">
+                    <div class="doctor-name">
+                      付国军
+                    </div>
+                    <div class="font-middle-nomal">
+                      主任医生
+                    </div>
+                  </div>
+                  <div class="doctor-ky">
+                    <div class="font-middle-nomal">
+                      皮肤性病科
+                    </div>
+                    <div class="font-middle-nomal">
+                      沧州市任命医院
+                    </div>
+                  </div>
+                  <div class="doctor-decrease">
+                    擅长：坐疮，尖锐湿疣，甲癣，足癣，股癣，脂溢性皮炎，过敏
+                  </div>
+                  <div class="doctor-pingjia">
+                    <div class="doctor-star">
+                      <afIcon class="iconfont icon-star2" size="sIcon" />
+                      <span>5.00</span>
+                    </div>
+                  </div>
+                  <div class="doctor-tab">
+                    <div>
+                      教授
+                    </div>
+                    <div>
+                      快速相应
+                    </div>
+                    <div>
+                      专业性优秀
+                    </div>
+                  </div>
+                  <div class="doctor-price">
+                    <div>
+                      图文 ￥79
+                    </div>
+                    <div>
+                      电话 ￥95
+                    </div>
+                    <span>问医生</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </dxScroll>
@@ -175,10 +227,98 @@ export default {
   position: absolute;
   width: 100%;
   top: 161px;
-  padding: 9px 0;
   bottom: 0;
+  padding: 0;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  // .doctor-content::after {
+  //   content: "";
+  //   border: 1px solid red;
+  //   width: 100%;
+  // }
+  .doctor-content {
+    padding: 12px;
+    .doctor-items::after{
+      content:  '';
+      border-bottom: 1px solid red;
+      width: 100%;
+    }
+    .doctor-item {
+      padding: 12px 0;
+      display: flex;
+      .doctor-img {
+        margin-right: 12px;
+        img {
+          border-radius: 5px;
+          width: 64px;
+          height: 64px;
+        }
+      }
+      .doctor-info {
+        .doctor-top {
+          display: flex;
+          align-items: center;
+          .doctor-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-right: 6px;
+          }
+        }
+        .doctor-ky {
+          display: flex;
+          align-items: center;
+          margin: 3px 0;
+          div {
+            margin-right: 5px;
+          }
+        }
+        .doctor-decrease {
+          margin-top: 12px;
+          font-size: 14px;
+          color: #999;
+        }
+
+        .doctor-pingjia {
+          margin-top: 12px;
+          .doctor-star {
+            font-weight: 600;
+            color: #ffca00;
+            font-size: 12px;
+          }
+        }
+        .doctor-tab {
+          display: flex;
+          margin-top: 10px;
+          div {
+            margin-right: 5px;
+            border-radius: 5px;
+            background-color: #f7f7f7;
+            font-size: 12px;
+            padding: 1px 5px;
+            color: #c29a00;
+          }
+        }
+        .doctor-price {
+          display: flex;
+          align-items: center;
+          margin-top: 20px;
+          div {
+            margin-right: 12px;
+            font-size: 14px;
+          }
+          span {
+            margin-left: auto;
+            background-color: #eee;
+            text-decoration: solid;
+            color: #00e96f;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
 }
 .km-title {
   width: 100%;
@@ -235,8 +375,6 @@ export default {
   z-index: 202;
   background: #fff;
   .km-menuItem {
-    display: -webkit-box;
-    display: -webkit-flex;
     display: flex;
     z-index: 203;
     -webkit-box-flex: 1;
@@ -375,6 +513,7 @@ export default {
 }
 .km-content-item {
   height: 100%;
+  transition: all 2s;
 }
 .km-content-body {
   height: 800px;
@@ -386,7 +525,6 @@ export default {
   z-index: -1;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  transition: all 2s;
 }
 .menuitem {
   background-color: rgba(0, 0, 0, 0.7);
@@ -404,18 +542,25 @@ export default {
 .area {
   padding: 0 10px;
 }
-.km-content-tab{
+.km-content-tab {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
 }
-.km-content-tab div{
+.km-content-tab div {
   min-width: 50px;
   text-align: center;
-  padding: 1px 5px;
-  background-color: #cbcbcb;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #eeeeee;
   margin-right: 30px;
   margin-bottom: 10px;
-  color: #fff;
+  color: #000;
+  font-size: 14px;
+}
+
+//将要提出去的
+.font-middle-nomal {
+  font-size: 16px;
 }
 </style>

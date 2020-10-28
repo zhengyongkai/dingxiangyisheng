@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    
     <router-view />
     <Tabbar v-show="tabBarShow"></Tabbar>
   </div>
