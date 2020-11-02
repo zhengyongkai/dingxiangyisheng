@@ -8,6 +8,8 @@ import dxSearch from "./dxSearch";
 import Sticky  from './dxStiky' 
 import dxScroll from './dxScroll'
 import dxUpload from './dxUpload'
+import dxActionSheet from './dxActionSheet'
+import picActionSheet from './dxChoosePic'
 import "vant/lib/index.css";
 import "vant/lib/icon/local.css";
 const components = [
@@ -20,7 +22,9 @@ const components = [
   dxSearch,
   Sticky,
   dxScroll,
-  dxUpload
+  dxUpload,
+  dxActionSheet,
+  picActionSheet
 ];
 export default {
   install(Vue) {

@@ -10,7 +10,7 @@
         </div>
         <div class="km-form">
           <div class="km-textarea">
-            <textarea placeholder="请输入你的具体病症。"></textarea>
+            <textarea placeholder="简要描述你的年龄，性别以及症状，我们将为你接通对症的专科医生，并确保隐私安全"></textarea>
           </div>
           <div class="km-form-title">
             <div>快速描述常见疾病</div>
@@ -21,21 +21,29 @@
             </div>
           </div>
           <div class="km-form-upload">
-            <dxUpload @onChange="change"></dxUpload>
+            <dxUpload
+              @onChange="change"
+              ref="upload"
+              @chooseFile="onChooseFile"
+            ></dxUpload>
           </div>
-          {{ a }}
         </div>
       </div>
     </dxScroll>
+    <picActionSheet
+      @change="itemChange"
+      :show="showPhotoDialog"
+      @fileChangeSuccess="onFileChangeSuccess"
+    ></picActionSheet>
     <div class="km-footer">
-      <div class="km-footer-submit" @click="takePhoto">
+      <div class="km-footer-submit" @click="next">
         下一步
       </div>
     </div>
   </div>
 </template>
 <script>
-import { takePhoto } from "@u/android";
+import { dataURLtoFile } from "@u/utils.js";
 export default {
   name: "index",
   data() {
@@ -51,41 +59,37 @@ export default {
         "产后焦虑",
         "阴道炎"
       ],
-      a: "xx"
+      showPhotoDialog: { visable: false }
     };
   },
   components: {},
   watch: {},
   methods: {
-    // takePhoto() {
-    //   var cameraOptions = {
-    //     quality: 75,
-    //     destinationType: Camera.DestinationType.DATA_URL,
-    //     sourceType: Camera.PictureSourceType.CAMERA, //照相机类型
-    //     allowEdit: true,
-    //     encodingType: Camera.EncodingType.JPEG,
-    //     targetWdith: 100,
-    //     targetHeight: 100,
-    //     popoverOptions: CameraPopoverOptions,
-    //     saveToPhotoAlbum: false
-    //   };
-    //   console.log("调用拍照接口");
-    //   navigator.camera.getPicture(
-    //     onCameraSuccess,
-    //     onCameraError,
-    //     cameraOptions
-    //   );
-    //   function onCameraSuccess(imageURL) {
-    //     console.log("onCameraSuccess:" + imageURL);
-    //     this.a = 'dddd';
-    //   }
-    //   function onCameraError(e) {
-    //     this.a = e;
-    //   }
-    // },
-    change() {
-      console.log(this.$refs.scroll.refresh());
+    itemChange() {
+      this.$refs.upload.uploadFile();
     },
+    onChooseFile() {
+      //https://blog.csdn.net/github_35549695/article/details/82770044
+      this.showPhotoDialog.visable = true;
+    },
+    change() {
+      this.$refs.scroll.refresh();
+    },
+    onFileChangeSuccess(item) {
+      //转化文件格式 将base64转File
+      let e = {
+        target: {
+          files: [
+            dataURLtoFile(
+              "data:image/jpeg;base64," + item,
+              new Date().getTime() + ".jpeg"
+            )
+          ]
+        }
+      };
+      this.$refs.upload.fileChangeHandler(e);
+    },
+    next() {}
   }
 };
 </script>
@@ -117,7 +121,7 @@ export default {
       background-color: #fff;
       height: 100px;
       letter-spacing: 2px;
-      font-size: 18px;
+      font-size: 16px;
       resize: none;
     }
   }

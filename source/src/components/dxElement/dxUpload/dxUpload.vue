@@ -5,7 +5,7 @@
       class="file-input"
       ref="file"
       @change="fileChangeHandler"
-     
+      :accept="fileTypes"
     />
 
     <transition-group class="af-upload-list flex" tag="div" name="el-list">
@@ -14,14 +14,12 @@
           <div :key="'1' + i" class="img-parent">
             <img :src="file.src" :title="file.name" class="thumb" />
             <span class="af-upload-list__item-actions">
-              <i class="el-icon-zoom-in"></i>
-              <i class="el-icon-download"></i>
-              <i class="el-icon-delete"></i>
+             x
             </span>
           </div>
         </slot>
       </template>
-      <div class="add-file" key="addFile" @click="uploadFile" v-if="!disabled">
+      <div class="add-file" key="addFile" @click="chooseFile" v-if="!disabled">
         <div>
           <afIcon
             class="iconfont icon-camera"
@@ -73,10 +71,6 @@ export default {
       type: Number,
       default: Infinity
     },
-    fileList: {
-      type: Array,
-      default: () => []
-    },
     empty: {
       type: String,
       default: "暂无文件数据"
@@ -87,13 +81,15 @@ export default {
       dialogVisible: false,
       dialogImageUrl: "",
       fileList: [] /* 文件列表 */,
-      fileTypes: ["jpeg", "png","jpg"],
-      maxSize: 100
+      fileTypes: ["jpeg", "png", "jpg"],
       // upFileData: []
     };
   },
   computed: {},
   methods: {
+    chooseFile() {
+      this.$emit("chooseFile", "");
+    },
     uploadFile() {
       this.$refs.file.click();
     },
@@ -103,8 +99,8 @@ export default {
         let index = element.name.lastIndexOf(".");
         let ext = element.name.slice(index + 1);
         if (!this.fileTypes.includes(ext)) {
-           this.$toast('文件格式不对');
-           return;
+          this.$toast("文件格式不对");
+          return;
         }
         if (element.size > maxSize * 1024 * 1024) {
           this.$toast("文件太大");
@@ -120,6 +116,7 @@ export default {
         this.fileTypes,
         this.maxSize
       );
+      console.error(JSON.stringify(fileFilterList));
       fileFilterList.map(element => {
         this.fileList.push({
           name: element.name,
@@ -132,7 +129,6 @@ export default {
         // console.log(processedFile);
       });
       this.$emit("onChange", fileFilterList);
-      this.scroll && this.scroll.refresh();
     }
   }
 };
@@ -167,39 +163,30 @@ export default {
 .add-file {
   width: 100px;
   height: 100px;
-  border: 1px dashed #999;
+  background: #f1f1f1;
   text-align: center;
   font-size: 12px;
   padding: 20px 0;
   box-sizing: border-box;
-  color: #666;
+  color: #999;
   cursor: pointer;
 }
 .af-upload-list__item-actions {
   position: absolute;
   z-index: 999;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  cursor: default;
+  border-radius: 10px;
+  width: 16px;
+  height: 16px;
+  left: -5px;
+  top: -5px;
   text-align: center;
-  opacity: 0;
-  font-size: 20px;
-  background-color: rgba(0, 0, 0, 0.7);
-  transition: opacity 0.3s;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  > i {
-    cursor: pointer;
-    color: rgba(#fff, 0.9);
-  }
-  &:hover {
-    opacity: 1;
-  }
+  border:3px solid #fff;
+  background: #07c160;
+  line-height: 15px;
+  color: #fff;
+  cursor: default;
+  font-size: 16px;
+ 
 }
 .empty {
   text-align: left;

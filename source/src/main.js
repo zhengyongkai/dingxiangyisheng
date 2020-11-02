@@ -7,7 +7,10 @@ import { PullRefresh } from "vant";
 import "vant/lib/icon/local.css";
 import Mui from "vue-awesome-mui";
 import dxElement from "@/components/dxElement";
-import { Notify,Toast } from "vant";
+import Vconsole from "vconsole"; //import vconsole
+const vConsole = new Vconsole();
+Vue.use(vConsole);
+import { Notify, Toast } from "vant";
 Vue.use(PullRefresh);
 Vue.use(Mui);
 Vue.use(dxElement);
