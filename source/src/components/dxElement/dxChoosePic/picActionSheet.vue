@@ -31,7 +31,9 @@ export default {
           this.$emit("change", item);
           break;
         case 2:
-          takePhoto(this);
+          takePhoto(res => {
+            this.$emit("fileChangeSuccess", res);
+          })
           break;
         case 3:
           takefromgalery(this);
@@ -41,7 +43,7 @@ export default {
     onCameraSuccess(item) {
       console.log(item);
       this.$toast(item);
-      this.$emit('fileChangeSuccess',item)
+      this.$emit("fileChangeSuccess", item);
     },
     onCameraError(item) {
       console.log(item);

@@ -81,7 +81,7 @@ export default {
         target: {
           files: [
             dataURLtoFile(
-              "data:image/jpeg;base64," + item,
+              item,
               new Date().getTime() + ".jpeg"
             )
           ]

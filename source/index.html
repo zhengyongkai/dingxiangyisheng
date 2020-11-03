@@ -9,13 +9,21 @@
     />
     <title>source</title>
   </head>
-  <style>
-    
-  </style>
+  <style></style>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript"></script>
+  <script type="text/javascript">
+    document.addEventListener("plusready", onPlusReady, false);
+    // 扩展API加载完毕，现在可以正常调用扩展API
+    function onPlusReady() {
+      var cmr = plus.camera.getCamera();
+      alert(
+        "Camera supperted image resolutions: " + cmr.supportedImageResolutions
+      );
+    }
+  </script>
 </html>

@@ -13,7 +13,7 @@
         <slot :file="file">
           <div :key="'1' + i" class="img-parent">
             <img :src="file.src" :title="file.name" class="thumb" />
-            <span class="af-upload-list__item-actions">
+            <span class="af-upload-list__item-actions" @click.stop="deleteImg(i)">
              x
             </span>
           </div>
@@ -129,6 +129,9 @@ export default {
         // console.log(processedFile);
       });
       this.$emit("onChange", fileFilterList);
+    },
+    deleteImg(key){
+      this.fileList.splice(key,1)
     }
   }
 };
