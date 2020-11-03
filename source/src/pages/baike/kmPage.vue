@@ -469,7 +469,7 @@ export default {
       left: 0;
       padding: 0;
       overflow: scroll;
-      width: 150px;
+      width: 100px;
       background: #eee;
     }
     .km-menu-items-left div {
@@ -481,7 +481,7 @@ export default {
     .km-menu-items-right {
       position: absolute;
       right: 0;
-      left: 150px;
+      left: 100px;
       padding: 0 10px;
       top: 0;
       bottom: 0;
