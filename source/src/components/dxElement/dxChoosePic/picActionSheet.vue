@@ -33,21 +33,14 @@ export default {
         case 2:
           takePhoto(res => {
             this.$emit("fileChangeSuccess", res);
-          })
+          });
           break;
         case 3:
-          takefromgalery(this);
+          takefromgalery(res => {
+            this.$emit("fileChangeSuccess", res);
+          });
           break;
       }
-    },
-    onCameraSuccess(item) {
-      console.log(item);
-      this.$toast(item);
-      this.$emit("fileChangeSuccess", item);
-    },
-    onCameraError(item) {
-      console.log(item);
-      this.$toast(item);
     }
   }
 };

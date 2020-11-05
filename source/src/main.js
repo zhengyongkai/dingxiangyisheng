@@ -10,7 +10,9 @@ import dxElement from "@/components/dxElement";
 import Vconsole from "vconsole"; //import vconsole
 const vConsole = new Vconsole();
 Vue.use(vConsole);
-import { Notify, Toast } from "vant";
+import { Notify, Toast, ImagePreview } from "vant";
+// 全局注册
+Vue.use(ImagePreview);
 Vue.use(PullRefresh);
 Vue.use(Mui);
 Vue.use(dxElement);

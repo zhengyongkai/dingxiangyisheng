@@ -23,7 +23,7 @@
             <div class="wx-tab-descrpation">三甲名医</div>
           </div>
           <div class="wx-tab-line"></div>
-          <div class="wx-tab-item">
+          <div class="wx-tab-item" @click="goto('mechine')">
             <div class="wx-tab-img"><img src="./image/3.png" alt="" /></div>
             <div class="wx-tab-text">去开药</div>
             <div class="wx-tab-descrpation">快递送货上门</div>

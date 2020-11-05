@@ -10,6 +10,7 @@ import dxScroll from './dxScroll'
 import dxUpload from './dxUpload'
 import dxActionSheet from './dxActionSheet'
 import picActionSheet from './dxChoosePic'
+import dxImagePreview from './dxImagePreview'
 import "vant/lib/index.css";
 import "vant/lib/icon/local.css";
 const components = [
@@ -24,7 +25,8 @@ const components = [
   dxScroll,
   dxUpload,
   dxActionSheet,
-  picActionSheet
+  picActionSheet,
+  dxImagePreview
 ];
 export default {
   install(Vue) {

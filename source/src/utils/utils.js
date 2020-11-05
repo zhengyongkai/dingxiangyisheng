@@ -12,6 +12,4 @@ function dataURLtoFile(dataurl, filename) {
 }
 
 
-
-
 export { dataURLtoFile };

@@ -12,78 +12,59 @@
       <template v-for="(file, i) in fileList">
         <slot :file="file">
           <div :key="'1' + i" class="img-parent">
-            <img :src="file.src" :title="file.name" class="thumb" />
-            <span class="af-upload-list__item-actions" @click.stop="deleteImg(i)">
-             x
+            <img
+              :src="file.src"
+              :title="file.name"
+              class="thumb"
+              @click="imagePreviewShow = true"
+            />
+            <span
+              class="af-upload-list__item-actions"
+              @click.stop="deleteImg(i)"
+            >
+              <div>x</div>
             </span>
           </div>
         </slot>
       </template>
-      <div class="add-file" key="addFile" @click="chooseFile" v-if="!disabled">
-        <div>
+      <div class="add-file" key="addFile" @click="chooseFile" >
+        <div class="filecontent">
           <afIcon
             class="iconfont icon-camera"
-            style="font-size: 40px;margin-right:0px"
+            style="font-size: 40px;maargin-right:0px"
           ></afIcon>
           <div>图片</div>
         </div>
       </div>
     </transition-group>
+    <van-image-preview v-model="imagePreviewShow" :images="images">
+    </van-image-preview>
   </div>
 </template>
 <script>
 export default {
   name: "dxUpload",
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    value: {
-      type: Array,
-      default: () => []
-    },
-    type: {
-      //显示的是button 还是显示的是可预览的样式
-      type: String,
-      default: () => "upload"
-    },
-    btnText: {
-      //button显示的字
-      type: String,
-      default: () => "上传文件"
-    },
-    limit: {
-      //上传数量
-      type: Number,
-      default: Infinity //默认无限制
-    },
-    allowType: {
-      type: String,
-      default: "img"
-    },
-    accept: {
-      type: Array,
-      default: () => []
-    },
-    maxSize: {
-      //限制单个文件大小（单位：M）
-      type: Number,
-      default: Infinity
-    },
-    empty: {
-      type: String,
-      default: "暂无文件数据"
-    }
-  },
   data() {
     return {
       dialogVisible: false,
+      imagePreviewShow: false,
       dialogImageUrl: "",
       fileList: [] /* 文件列表 */,
       fileTypes: ["jpeg", "png", "jpg"],
+      images: []
       // upFileData: []
     };
+  },
+  watch: {
+    fileList: {
+      deep: true, //深度监听
+      handler: function() {
+        this.images = []
+        this.fileList.forEach(pic => {
+            this.images.push(pic.src);
+        });
+      }
+    }
   },
   computed: {},
   methods: {
@@ -122,16 +103,16 @@ export default {
           name: element.name,
           type: element.type,
           src: window.URL.createObjectURL(element),
-          status: 0, //'0: 为上传 1: 已上传 2. pending 3. 上传失败 '
           size: element.size,
           fileSource: element
         });
+
         // console.log(processedFile);
       });
       this.$emit("onChange", fileFilterList);
     },
-    deleteImg(key){
-      this.fileList.splice(key,1)
+    deleteImg(key) {
+      this.fileList.splice(key, 1);
     }
   }
 };
@@ -149,13 +130,16 @@ export default {
     transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   }
   .img-parent {
-    margin-right: 10px;
     margin-bottom: 10px;
     position: relative;
     border-radius: 6px;
+    width: 33%;
   }
   .thumb {
     width: 100px;
+    display: block;
+    margin: auto;
+
     height: 100px;
     cursor: pointer;
     border-radius: 6px;
@@ -164,32 +148,39 @@ export default {
   }
 }
 .add-file {
-  width: 100px;
-  height: 100px;
-  background: #f1f1f1;
+  width: 33%;
+
   text-align: center;
   font-size: 12px;
-  padding: 20px 0;
+
   box-sizing: border-box;
   color: #999;
   cursor: pointer;
+  .filecontent {
+    padding: 20px 0;
+    box-sizing: border-box;
+    height: 100px;
+    background: #f1f1f1;
+    margin: 0 auto;
+    width: 100px;
+  }
 }
 .af-upload-list__item-actions {
   position: absolute;
   z-index: 999;
   border-radius: 10px;
   width: 16px;
+
   height: 16px;
-  left: -5px;
+  left: 0px;
   top: -5px;
   text-align: center;
-  border:3px solid #fff;
+  border: 3px solid #fff;
   background: #07c160;
   line-height: 15px;
   color: #fff;
   cursor: default;
   font-size: 16px;
- 
 }
 .empty {
   text-align: left;

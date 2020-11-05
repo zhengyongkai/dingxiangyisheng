@@ -77,6 +77,7 @@ export default {
     },
     onFileChangeSuccess(item) {
       //转化文件格式 将base64转File
+      console.log('eeeee',item)
       let e = {
         target: {
           files: [
