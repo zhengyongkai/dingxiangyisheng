@@ -1,6 +1,6 @@
 <template>
   <div class="km-page">
-    <div class="km-title">
+    <div>
       <dxHeader :titleName="'在线购药'"></dxHeader>
       <div class="search">
         <div class="wx-index-search">
@@ -14,7 +14,7 @@
     <div class="km-content">
       <dxScroll class="km-body">
         <div style="height:800px">
-          <div class="km-title">
+          <div class="km-renzheng">
             <div>安心购 保障用品</div>
             <div>国药堂大药房发货 药监认证</div>
             <div><AfIcon class="iconfont icon-right "></AfIcon></div>
@@ -24,11 +24,14 @@
               常见症状
             </div>
             <div class="km-medcine-spec-items">
-              <div class="km-medcine" v-for="(v, i) in 4" :key="i">
-                <div><img src="./img/1.png" /></div>
+              <div class="km-medcine" v-for="(v, i) in list" :key="i">
+                <div><img :src="v.img" /></div>
                 <div>痤疮</div>
               </div>
             </div>
+          </div>
+          <div class="km-adsimg">
+            <img src="@/assets/advise/yyw.png" />
           </div>
         </div>
       </dxScroll>
@@ -41,7 +44,17 @@ export default {
   name: "HelloWorld",
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
+      msg: "Welcome to Your Vue.js App",
+      list: [
+        { img: require("./img/1.png") },
+        { img: require("./img/2.png") },
+        { img: require("./img/3.png") },
+        { img: require("./img/4.png") },
+        { img: require("./img/5.png") },
+        { img: require("./img/6.png") },
+        { img: require("./img/7.png") },
+        { img: require("./img/8.png") }
+      ]
     };
   }
 };
@@ -107,14 +120,15 @@ export default {
   font-size: 16px;
 }
 .km-body {
+  right: 12px;
+  left: 12px;
   position: absolute;
   top: 120px;
-  width: 100%;
   overflow: hidden;
   bottom: 0;
-  .km-title {
+  .km-renzheng {
     display: flex;
-    margin: 0 12px;
+    margin-bottom: 10px;
     div:first-child {
       font-size: 14px;
       line-height: 14px;
@@ -135,32 +149,47 @@ export default {
     }
   }
   .km-items {
-    padding: 14px 0;
     color: #777;
     .km-medcine-spec-items {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       :first-child {
       }
       .km-medcine {
-                  width: 20%;
-        padding: 5px;
         text-align: center;
+        width: 20%;
+        padding: 0 1px;
+        font-size: 14px;
+        margin-bottom: 5px;
         justify-content: space-between;
         div:first-child {
           margin: 0 auto;
-          display:inline-block;
-          box-shadow: 1px 1px 1px #e3e3e3;
-          background: #eee;
+          width: 60px;
+          padding: 20px 2px;
+          box-sizing: border-box;
+          height: 60px;
+          border-radius: 50px;
+          // box-shadow: 1px 1px 1px #e3e3e3;
+          background: #f5f5f5;
           img {
+            width: 40px;
             text-align: center;
           }
-         
+        }
+        div:last-child {
+          margin-top: 10px;
         }
       }
     }
     .km-title {
-      margin-bottom: 10px;
+      margin: 15px 0;
+    }
+  }
+  .km-adsimg {
+    margin: 8px 0;
+    img {
+      width: 100%;
     }
   }
 }
