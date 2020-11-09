@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <router-view />
     <Tabbar v-show="tabBarShow"></Tabbar>
   </div>
@@ -47,6 +46,7 @@ export default {
   padding: 0;
   margin: 0;
   font-family: "fangping";
+  color: #000;
 }
 html,
 body {
@@ -66,10 +66,10 @@ body {
   background: #ededed;
   border-radius: 5px;
 } */
-.shadow{
-     box-shadow: 0px 2px 2px #eee;
+.shadow {
+  box-shadow: 0px 2px 2px #eee;
 }
-.hidden{
+.hidden {
   overflow: hidden;
 }
 </style>

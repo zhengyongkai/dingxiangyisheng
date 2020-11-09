@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="km-content">
-      <dxScroll class="km-body">
-        <div style="height:800px">
+      <dxScroll class="km-body" ref="scroll">
+        <div>
           <div class="km-renzheng">
             <div>安心购 保障用品</div>
             <div>国药堂大药房发货 药监认证</div>
@@ -33,6 +33,45 @@
           <div class="km-adsimg">
             <img src="@/assets/advise/yyw.png" />
           </div>
+          <div class="km-items">
+            <div class="km-title">
+              呼吸系统
+            </div>
+            <div class="km-tabs">
+              <div class="km-tab">上呼吸道感染</div>
+              <div class="km-tab">过敏性鼻炎</div>
+              <div class="km-tab">支气管哮喘</div>
+            </div>
+          </div>
+          <div class="km-items">
+            <div class="km-title">
+              皮肤问题
+            </div>
+            <div class="km-tabs">
+              <div class="km-tab">毛囊炎</div>
+              <div class="km-tab">银屑病</div>
+              <div class="km-tab">皮肤过敏</div>
+              <div class="km-tab">脱发</div>
+              <div class="km-tab">荨麻疹</div>
+              <div class="km-tab">脂溢性皮炎</div>
+              <div class="km-tab">手癣</div>
+              <div class="km-tab">足癣</div>
+              <div class="km-tab">带状疱疹</div>
+            </div>
+          </div>
+           <div class="km-items">
+            <div class="km-title">
+              消化系统
+            </div>
+            <div class="km-tabs">
+              <div class="km-tab">痔疮</div>
+              <div class="km-tab">厌食症</div>
+              <div class="km-tab">便血</div>
+               <div class="km-tab">便秘</div>
+              <div class="km-tab">腹泻</div>
+              <div class="km-tab">胃溃疡</div>
+            </div>
+          </div>
         </div>
       </dxScroll>
     </div>
@@ -45,6 +84,7 @@ export default {
   data() {
     return {
       msg: "Welcome to Your Vue.js App",
+      search:'',
       list: [
         { img: require("./img/1.png") },
         { img: require("./img/2.png") },
@@ -150,6 +190,7 @@ export default {
   }
   .km-items {
     color: #777;
+    margin-bottom: 20px;
     .km-medcine-spec-items {
       display: flex;
       flex-wrap: wrap;
@@ -166,15 +207,17 @@ export default {
         div:first-child {
           margin: 0 auto;
           width: 60px;
-          padding: 20px 2px;
+          //    padding: 20px 2px;
           box-sizing: border-box;
           height: 60px;
+          vertical-align: middle;
           border-radius: 50px;
-          // box-shadow: 1px 1px 1px #e3e3e3;
           background: #f5f5f5;
+          line-height: 60px;
           img {
             width: 40px;
             text-align: center;
+            vertical-align: middle;
           }
         }
         div:last-child {
@@ -190,6 +233,21 @@ export default {
     margin: 8px 0;
     img {
       width: 100%;
+    }
+  }
+  .km-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    padding:0;
+    justify-content: space-between;
+    .km-tab {
+      background: #eee;
+      margin-bottom: 10px;
+      width: 30%;
+      padding: 10px 1%;
+      text-align: center;
+      font-size: 14px;
+      color: #000;
     }
   }
 }

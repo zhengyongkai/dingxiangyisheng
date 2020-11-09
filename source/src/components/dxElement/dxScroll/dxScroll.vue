@@ -37,6 +37,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this._initScroll();
+      this.refresh()
     });
   },
   methods: {
@@ -72,7 +73,7 @@ export default {
     refresh() {
       setTimeout(()=>{
          this.scroll && this.scroll.refresh();
-      },300)
+      },100)
     },
     scrollTo() {
       this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);
