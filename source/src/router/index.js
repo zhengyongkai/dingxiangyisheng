@@ -8,6 +8,7 @@ import wysPage from "@/pages/baike/wysPage";
 import kmPage from "@/pages/baike/kmPage"; 
 import phoneCallPage from "@/pages/phoneCall/index"; 
 import mechine from '@/pages/mechine/index'
+import chooseMechine from '@/pages/mechine/chooseMechine/chooseMechine'
 Vue.use(Router);
 
 export default new Router({
@@ -51,6 +52,10 @@ export default new Router({
       path: "/mechine",
       name:'mechine',
       component:mechine
+    },{
+      path:"/mechine/chooseMechine",
+      name:'chooseMechine',
+      component:chooseMechine
     }
   ]
 });

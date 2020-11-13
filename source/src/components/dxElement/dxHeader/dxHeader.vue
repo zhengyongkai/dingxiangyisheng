@@ -1,9 +1,15 @@
 <template>
   <div class="dx-header">
-    <van-nav-bar :title="titleName" :left-arrow="back ? true : false" @click-left='onBack'>
-      <slot name="left"></slot>
-      <slot name="title" v-if="titleName == ''"></slot>
-      <slot name="right"></slot>
+    <van-nav-bar
+      :title="titleName"
+      :left-arrow="back ? true : false"
+      @click-left="onBack"
+    >
+      <span slot="left" v-if="!back"><slot name="left"></slot></span>
+      <span slot="title" v-if="titleName == ''"
+        ><slot name="title"></slot
+      ></span>
+      <span slot="right"><slot name="right"></slot></span>
     </van-nav-bar>
   </div>
 </template>
@@ -24,9 +30,9 @@ export default {
   data() {
     return {};
   },
-  methods:{
-    onBack(){
-      this.$router.go(-1)
+  methods: {
+    onBack() {
+      this.$router.go(-1);
     }
   }
 };

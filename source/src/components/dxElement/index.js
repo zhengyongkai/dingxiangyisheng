@@ -11,6 +11,7 @@ import dxUpload from './dxUpload'
 import dxActionSheet from './dxActionSheet'
 import picActionSheet from './dxChoosePic'
 import dxImagePreview from './dxImagePreview'
+import dxSearchTabbar from './dxSearchTabbar'
 import "vant/lib/index.css";
 import "vant/lib/icon/local.css";
 const components = [
@@ -26,7 +27,8 @@ const components = [
   dxUpload,
   dxActionSheet,
   picActionSheet,
-  dxImagePreview
+  dxImagePreview,
+  dxSearchTabbar
 ];
 export default {
   install(Vue) {

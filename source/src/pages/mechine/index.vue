@@ -24,7 +24,7 @@
               常见症状
             </div>
             <div class="km-medcine-spec-items">
-              <div class="km-medcine" v-for="(v, i) in list" :key="i">
+              <div class="km-medcine" v-for="(v, i) in list" :key="i" @click="goto('mechine/chooseMechine')">
                 <div><img :src="v.img" /></div>
                 <div>痤疮</div>
               </div>
@@ -96,6 +96,11 @@ export default {
         { img: require("./img/8.png") }
       ]
     };
+  },
+  methods:{
+    goto(path){
+      this.$router.push('/'+path)
+    },
   }
 };
 </script>
