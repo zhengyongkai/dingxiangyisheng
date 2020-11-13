@@ -2,7 +2,7 @@
   <div class="dx-header">
     <div class="bar">
       <div class="bar-left">
-        <van-icon name="arrow-left" />
+        <van-icon name="arrow-left" @click="onBack"/>
       </div>
       <div class="wx-index-search">
         <div class="icon">
@@ -45,6 +45,7 @@ export default {
   width: 100%;
   z-index: 999;
 }
+
 .bar {
   position: relative;
   z-index: 1;
@@ -66,11 +67,12 @@ export default {
   .bar-left {
   }
   .van-icon {
-    color: #ababae;
+    color: #1989fa;
     min-width: 1em;
     margin-right: 4px;
-    font-size: 20px;
+    font-size: 16px;
   }
+  
   .bar-left,
   .bar-right {
     position: absolute;
@@ -82,7 +84,7 @@ export default {
     -webkit-box-align: center;
     -webkit-align-items: center;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 16px;
     font-size: 14px;
     cursor: pointer;
   }
