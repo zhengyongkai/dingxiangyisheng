@@ -96,6 +96,7 @@
       </div>
     </div>
     <dxScroll class="km-body">
+       <dx-pull-fresh :loading="isLoading" @refresh="onRefresh">
       <div>
         <div>
           <div class="doctor-content">
@@ -156,6 +157,7 @@
           </div>
         </div>
       </div>
+       </dx-pull-fresh>
     </dxScroll>
   </div>
 </template>
@@ -168,6 +170,7 @@ export default {
       temperData: 0,
       country: country,
       countrySelect: "",
+      isLoading:false,
       city: "",
       list: [
         {
@@ -189,6 +192,13 @@ export default {
     };
   },
   methods: {
+     onRefresh() {
+      this.isLoading = true;
+      setTimeout(() => {
+        // Toast("刷新成功");
+        this.isLoading = false;
+      }, 3000);
+    },
     fixBool(ref) {
       console.log(ref);
       // if(ref.isFixed){

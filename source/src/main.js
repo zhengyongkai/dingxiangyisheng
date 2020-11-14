@@ -7,9 +7,6 @@ import { PullRefresh } from "vant";
 import "vant/lib/icon/local.css";
 import Mui from "vue-awesome-mui";
 import dxElement from "@/components/dxElement";
-import Vconsole from "vconsole"; //import vconsole
-const vConsole = new Vconsole();
-Vue.use(vConsole);
 import { Notify, Toast, ImagePreview } from "vant";
 // 全局注册
 Vue.use(ImagePreview);

@@ -72,4 +72,7 @@ body {
 .hidden {
   overflow: hidden;
 }
+.van-toast__text{
+ color: #fff; 
+}
 </style>
