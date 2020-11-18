@@ -9,6 +9,7 @@
       </div>
     </div>
     <div class="wx-body">
+       <dxScroll class="wx-body" ref="scroll">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <div class="wx-tab">
           <div class="wx-tab-item">
@@ -96,6 +97,7 @@
           <dx-advise :item="items" :title="'8月24日'"> </dx-advise>
         </div>
       </van-pull-refresh>
+       </dxScroll>
     </div>
   </div>
 </template>
@@ -154,11 +156,11 @@ export default {
 }
 .wx-index {
   font-size: 16px;
-  padding: 10px 0;
+  padding: 10px 10px;
   z-index: 200;
+  left:0;
+  right: 0;
   position: fixed;
-  left: 10px;
-  right: 10px;
   top: 0;
   background: #fff;
   .wx-index-search {
@@ -217,9 +219,14 @@ export default {
   font-size: 16px;
 }
 .wx-body {
-  position: relative;
-  margin-bottom: 60px;
-  top: 60px;
+ position: fixed;
+    left: 0;
+    top: 0;
+      padding: 0 10px;
+    margin-bottom: 60px;
+    top: 60px;
+    right: 0;
+    bottom: 60px;
 }
 .wx-tab {
   display: flex;

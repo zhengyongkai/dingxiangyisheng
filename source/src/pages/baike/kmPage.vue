@@ -95,7 +95,8 @@
         </div>
       </div>
     </div>
-    <dxScroll class="km-body">
+    <div>
+       <dxScroll class="km-body">
        <dx-pull-fresh :loading="isLoading" @refresh="onRefresh">
       <div>
         <div>
@@ -159,6 +160,7 @@
       </div>
        </dx-pull-fresh>
     </dxScroll>
+    </div>
   </div>
 </template>
 <script>

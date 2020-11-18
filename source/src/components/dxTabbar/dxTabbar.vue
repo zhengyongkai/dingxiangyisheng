@@ -25,4 +25,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+.body{
+  z-index: 999;
+}
 </style>

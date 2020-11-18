@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <Tabbar v-show="tabBarShow"></Tabbar>
+    <Tabbar v-show="tabBarShow" class="tabbar"></Tabbar>
   </div>
 </template>
 
@@ -46,14 +46,15 @@ export default {
   padding: 0;
   margin: 0;
   font-family: "fangping";
-  color: #000;
 }
+
 html,
 body {
   font-size: 16px;
   padding: 0;
   margin: 0;
   -webkit-overflow-scrolling: touch;
+  color: #000;
 }
 ::-webkit-scrollbar {
 }
@@ -75,4 +76,9 @@ body {
 .van-toast__text{
  color: #fff; 
 }
+.tabbar{
+  z-index: 999;
+}
+
+
 </style>

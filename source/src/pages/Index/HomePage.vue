@@ -1,50 +1,56 @@
 <template>
-  <div class="body">
-    <div class="wx-tabbar">
-      <div class="wx-tabbar-notice">
-        <div class="wx-tabbar-icon"><img src="./image/26.png" alt="" /></div>
-      </div>
-      <div class="wx-login">
-        <div class="wx-unlogin-text"><u>注册/</u><u>登录</u></div>
-        <div class="wx-unlogin-icon">
-          <img src="./image/28.png" alt="" />
-        </div>
-      </div>
-      <div class="wx-card">
-        <div class="wx-card-item" v-for="(i, v) in carditems" :key="v">
-          <div class="wx-card-num">{{ i.num }}</div>
-          <div class="wx-card-text">{{ i.text }}</div>
-        </div>
-      </div>
-      <div class="wx-vip">
-        <div class="wx-vip-content">
-          <div class="vip-img"><img src="./image/vip.png" alt="" /></div>
-          <div class="vip-text">丁香医生 优选医生免费问</div>
-          <div class="vip-button">立即开通</div>
-        </div>
-      </div>
-    </div>
-    <div class="wx-tab-items">
-      <div class="wx-tab-item" v-for="(i, v) in tabitems" :key="v">
-        <div class="wx-tab-img"><img :src="i.img" alt="" /></div>
-        <div class="wx-tab-text">{{ i.text }}</div>
-      </div>
-    </div>
-    <div class="wx-cell">
-      <div class="wx-cell-item">
-        <dx-cell :desc="'兑换礼品和优惠券'">
-          <div slot="title" class="cell-title">
-            <div class="cell-title-text">丁香豆</div>
-            <div class="cell-title-tag">免费送礼</div>
+   <div class="body">
+      <dxScroll class="wx-body" ref="scroll">
+      <div>
+        <div class="wx-tabbar">
+          <div class="wx-tabbar-notice">
+            <div class="wx-tabbar-icon">
+              <img src="./image/26.png" alt="" />
+            </div>
           </div>
-        </dx-cell>
-        <dx-cell :title="'私人医生'"> </dx-cell>
-        <dx-cell :title="'患者信息'"> </dx-cell>
-        <dx-cell :title="'设置'"> </dx-cell>
-        <dx-cell :title="'联系客服'"> </dx-cell>
+          <div class="wx-login">
+            <div class="wx-unlogin-text"><u>注册/</u><u>登录</u></div>
+            <div class="wx-unlogin-icon">
+              <img src="./image/28.png" alt="" />
+            </div>
+          </div>
+          <div class="wx-card">
+            <div class="wx-card-item" v-for="(i, v) in carditems" :key="v">
+              <div class="wx-card-num">{{ i.num }}</div>
+              <div class="wx-card-text">{{ i.text }}</div>
+            </div>
+          </div>
+          <div class="wx-vip">
+            <div class="wx-vip-content">
+              <div class="vip-img"><img src="./image/vip.png" alt="" /></div>
+              <div class="vip-text">丁香医生 优选医生免费问</div>
+              <div class="vip-button">立即开通</div>
+            </div>
+          </div>
+        </div>
+        <div class="wx-tab-items">
+          <div class="wx-tab-item" v-for="(i, v) in tabitems" :key="v">
+            <div class="wx-tab-img"><img :src="i.img" alt="" /></div>
+            <div class="wx-tab-text">{{ i.text }}</div>
+          </div>
+        </div>
+        <div class="wx-cell">
+          <div class="wx-cell-item">
+            <dx-cell :desc="'兑换礼品和优惠券'">
+              <div slot="title" class="cell-title">
+                <div class="cell-title-text">丁香豆</div>
+                <div class="cell-title-tag">免费送礼</div>
+              </div>
+            </dx-cell>
+            <dx-cell :title="'私人医生'"> </dx-cell>
+            <dx-cell :title="'患者信息'"> </dx-cell>
+            <dx-cell :title="'设置'"> </dx-cell>
+            <dx-cell :title="'联系客服'"> </dx-cell>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </dxScroll>
+   </div>
 </template>
 
 <script>
@@ -77,8 +83,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .body {
-  margin-bottom: 60px;
+overflow: hidden;
 }
+.wx-body {
+  position: absolute;
+  overflow: hidden;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
 .wx-tabbar {
   background-image: linear-gradient(to bottom, #fff, #f6f6f6);
   border-bottom-left-radius: 30px;
@@ -216,17 +231,17 @@ export default {
     letter-spacing: 1px;
     font-size: 16px;
   }
-   .cell-title-tag{
-     margin-left: 8px;
-     font-size: 12px;
-     color: #fff;
-     background:#0bBD89;
+  .cell-title-tag {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #fff;
+    background: #0bbd89;
     line-height: 18px;
     width: 60px;
     font-weight: lighter;
-     text-align: center;
-     height: 18px;
-     border-radius: 2px;
-   }
+    text-align: center;
+    height: 18px;
+    border-radius: 2px;
+  }
 }
 </style>

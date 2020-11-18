@@ -1,45 +1,66 @@
 <template>
-  <div class="km-page">
-    <div>
-      <dxHeader :titleName="'在线购药'"></dxHeader>
-      <div class="search">
-        <div class="wx-index-search">
-          <div class="icon">
-            <afIcon class="iconfont icon-search icon"></afIcon>
+  <transition name="slide" mode="out-in">
+    <div class="km-page">
+      <div>
+        <dxHeader :titleName="'在线购药'"></dxHeader>
+        <div class="search">
+          <div class="wx-index-search">
+            <div class="icon">
+              <afIcon class="iconfont icon-search icon"></afIcon>
+            </div>
+            <input v-model="search" placeholder="搜索疾病、症状、医药名" />
           </div>
-          <input v-model="search" placeholder="搜索疾病、症状、医药名" />
         </div>
       </div>
-    </div>
-    <div class="km-content">
       <dxScroll class="km-body" ref="scroll">
         <dx-pull-fresh :loading="isLoading" @refresh="onRefresh">
-          <div>
+          <div style="min-height:80vh">
             <div class="km-renzheng">
               <div>安心购 保障用品</div>
               <div>国药堂大药房发货 药监认证</div>
               <div><AfIcon class="iconfont icon-right "></AfIcon></div>
             </div>
             <div class="km-mechine-items">
-              <div class="km-mechine-content" v-for="(i, v) in 5" :key="v">
+              <div
+                class="km-mechine-content"
+                v-for="(i, v) in goodList"
+                :key="v"
+              >
                 <div class="shop-item">
                   <div class="img">
                     <img src="./img/img1.png" alt="" />
                   </div>
                   <div class="shop-info">
                     <div class="mechine-type-name">
-                      <div class="mechine-type">处方药</div>
-                      <div class="mechine-name">迪A 维a酸乳膏</div>
+                      <div class="mechine-type">{{ i.type }}</div>
+                      <div class="mechine-name">{{ i.name }}</div>
                     </div>
                     <div class="mechine-specs">
-                      0.025% * 30 g/支
+                      {{ i.specs }}
                     </div>
                     <div class="mechine-info">
-                      常用语治疗座舱等疾病，常用语治疗座舱等疾病，常用语治疗座舱等疾病常用语治疗座舱等疾病
+                      {{ i.info }}
                     </div>
                     <div class="mechine-price">
-                      <div>￥19.50</div>
-                      <div @click="chooseMechine">选择规格</div>
+                      <div>{{ i.price }}</div>
+                      <div
+                        class="choose-price"
+                        @click="chooseMechine(v, i)"
+                        v-if="!list[v] && i.stock != 0"
+                      >
+                        选择规格
+                      </div>
+                      <div
+                        class="choose-price-understock"
+                        v-else-if="i.stock == 0"
+                      >
+                        暂无库存
+                      </div>
+                      <div v-else class="goods-num">
+                        <div @click="goodsDecrease(v, i)">-</div>
+                        <div>{{ list[v].num || 0 }}</div>
+                        <div @click="goodsAdd(v, i)">+</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -48,57 +69,140 @@
           </div>
         </dx-pull-fresh>
       </dxScroll>
-    </div>
-    <div class="km-shop-bottom">
-      <div class="icon" @click="hiddenBottom">
-        <afIcon class="iconfont icon-cart"></afIcon>
-        <div class="spot">1</div>
-      </div>
-      <div class="text">
-        <div>已选择0件药品</div>
-        <div>共0件</div>
-      </div>
-      <div class="next">
-        下一步
-      </div>
-    </div>
-    <transition name="plus-icon">
-      <div class="shopCart" v-if="showBottom" @click="handleCartShow">
-        <div class="shopCartContent" @click.stop>
-          <div class="content-top">
-            <div>药品清单</div>
-            <div @click="hiddenBottom">
-              <!-- <van-icon name="cross" /> -->
-              <afIcon class="iconfont icon-close"></afIcon>
-            </div>
-          </div>
-          <div class="content">
-            <div>sdasdasd</div>
-            <div>sdasdasd</div>
-            <div>sdasdasd</div>
-            <div>sdasdasd</div>
-            <div>sdasdasd</div>
-          </div>
+      <div class="km-shop-bottom">
+        <div class="icon" @click="hiddenBottom">
+          <afIcon class="iconfont icon-cart"></afIcon>
+          <div class="spot">{{total}}</div>
+        </div>
+        <div class="text">
+          <div>已选择{{ Object.keys(list).length }}件药品</div>
+          <div>共{{ total }}件</div>
+        </div>
+        <div class="next">
+          下一步
         </div>
       </div>
-    </transition>
-  </div>
+      <transition name="plus-icon">
+        <div class="shopCart" v-if="showBottom" @click="handleCartShow">
+          <div class="shopCartContent" @click.stop>
+            <div class="content-top">
+              <div>药品清单</div>
+              <div @click="hiddenBottom">
+                <!-- <van-icon name="cross" /> -->
+                <afIcon class="iconfont icon-close"></afIcon>
+              </div>
+            </div>
+            <div class="content">
+              <div class="km-mechine-items" v-if="JSON.stringify(list) != '{}'">
+                <div class="km-mechine-content" v-for="(i, v) in list" :key="v">
+                  <div class="shop-item">
+                    <div class="img">
+                      <img src="./img/img1.png" alt="" />
+                    </div>
+                    <div class="shop-info">
+                      <div class="mechine-type-name">
+                        <div class="mechine-type">{{ i.info.type }}</div>
+                        <div class="mechine-name">{{ i.info.name }}</div>
+                        <div class="mechine-name">{{ i.info.name }}</div>
+                      </div>
+                      <div class="mechine-specs">
+                        {{ i.info.specs }}
+                      </div>
+                      <div class="mechine-info">
+                        {{ i.info.info }}
+                      </div>
+                      <div class="mechine-price">
+                        <div>{{ i.info.price }}</div>
+                        <div class="goods-num">
+                          <div @click="goodsListDecrease(v, i)">-</div>
+                          <div>{{ i.num || 0 }}</div>
+                          <div @click="goodsListAdd(v, i)">+</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="empty" v-else>
+                <div><i class="iconfont icon-empty"></i></div>
+                暂无物品
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </transition>
 </template>
-
 <script>
-import dxPullFresh from "../../../components/dxElement/dxPullFresh/dxPullFresh.vue";
 export default {
-  components: { dxPullFresh },
   name: "HelloWorld",
+  watch: {},
   data() {
     return {
       msg: "Welcome to Your Vue.js App",
       search: "坐疮",
       isLoading: false,
-      showBottom: false
+      showBottom: false,
+      list: {},
+      total: 0,
+      goodList: [
+        {
+          type: "处方药",
+          name: "迪A 维a酸乳膏",
+          specs: "0.025% * 30 g/支",
+          info:
+            " 常用语治疗座舱等疾病，常用语治疗座舱等疾病，常用语治疗座舱等疾病常用语治疗座舱等疾病",
+          price: "￥19.50",
+          stock: 5
+        },
+        {
+          type: "处方药",
+          name: "迪A 维a酸乳膏",
+          specs: "0.025% * 30 g/支",
+          info:
+            " 常用语治疗座舱等疾病，常用语治疗座舱等疾病，常用语治疗座舱等疾病常用语治疗座舱等疾病",
+          price: "￥19.50",
+          stock: 20
+        },
+        {
+          type: "处方药",
+          name: "迪A 维a酸乳膏",
+          specs: "0.025% * 30 g/支",
+          info:
+            " 常用语治疗座舱等疾病，常用语治疗座舱等疾病，常用语治疗座舱等疾病常用语治疗座舱等疾病",
+          price: "￥19.50",
+          stock: 2
+        },
+        {
+          type: "处方药",
+          name: "迪A 维a酸乳膏",
+          specs: "0.025% * 30 g/支",
+          info:
+            " 常用语治疗座舱等疾病，常用语治疗座舱等疾病，常用语治疗座舱等疾病常用语治疗座舱等疾病",
+          price: "￥19.50",
+          stock: 0
+        },
+        {
+          type: "处方药",
+          name: "迪A 维a酸乳膏",
+          specs: "0.025% * 30 g/支",
+          info:
+            " 常用语治疗座舱等疾病，常用语治疗座舱等疾病，常用语治疗座舱等疾病常用语治疗座舱等疾病",
+          price: "￥19.50",
+          stock: 0
+        }
+      ]
     };
   },
   methods: {
+    getTotal() {
+      let total = 0;
+      for (let key in this.list) {
+        total += parseInt(this.list[key].num);
+      }
+      this.total = total;
+    },
     hiddenBottom() {
       this.showBottom = !this.showBottom;
     },
@@ -115,8 +219,48 @@ export default {
         this.isLoading = false;
       }, 3000);
     },
-    chooseMechine() {
+    chooseMechine(index, value) {
       this.$toast("已加入药品清单");
+      if (!this.list[index]) {
+        this.list[index] = {};
+      }
+      this.list[index].num = 1;
+      this.list[index].info = value;
+      console.log(this.list);
+      this.getTotal();
+      this.$forceUpdate();
+    },
+    goodsDecrease(v, i) {
+      if (this.list[v].num <= 1) {
+        delete this.list[v];
+      } else {
+        this.list[v].num = this.list[v].num - 1;
+      }
+      this.getTotal();
+      this.$forceUpdate();
+    },
+    goodsAdd(v, i) {
+      if (this.list[v].num < i.stock) {
+        this.list[v].num = this.list[v].num + 1;
+      } else {
+        this.$toast("购买达到上限(*^▽^*)");
+      }
+      this.getTotal();
+      this.$forceUpdate();
+    },
+    goodsListDecrease(v, i) {
+      if (i.num <= 1) {
+        delete this.list[v];
+      } else {
+        this.list[v].num = this.list[v].num - 1;
+      }
+      this.getTotal();
+      this.$forceUpdate();
+    },
+    goodsListAdd(v, i) {
+      this.list[v].num = this.list[v].num + 1;
+      this.$forceUpdate();
+      this.getTotal();
     }
   }
 };
@@ -124,6 +268,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.2s;
+}
+.slide-enter,
+.slide-leave-to {
+  transform: translate3d(30%, 0, 0);
+  opacity: 0;
+}
 .search {
   position: fixed;
   top: 58px;
@@ -181,7 +334,7 @@ export default {
 .km-body {
   right: 12px;
   left: 12px;
-  position: absolute;
+  position: fixed;
   top: 120px;
   overflow: hidden;
   bottom: 50px;
@@ -244,7 +397,7 @@ export default {
         }
         .mechine-name {
           // font-size: 14px;
-          font-weight: 550;
+          font-weight: 500;
         }
       }
       .mechine-specs {
@@ -258,18 +411,58 @@ export default {
       }
       .mechine-price {
         display: flex;
+        height: 20px;
         align-items: center;
         div:first-child {
           // font-size: 14px;
           color: #1abb92;
         }
-        div:last-child {
+        .choose-price {
           font-size: 14px;
           margin-left: auto;
           background: #1abb92;
           color: #fff;
           padding: 2px 10px;
           border-radius: 2px;
+        }
+        .choose-price-understock {
+          font-size: 14px;
+          margin-left: auto;
+          background: #999;
+          color: #fff;
+          padding: 2px 10px;
+          border-radius: 2px;
+        }
+        .goods-num {
+          margin-left: auto;
+          display: flex;
+          padding: 2px 0;
+          div:first-child {
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            line-height: 16px;
+            font-weight: 600;
+            color: #01c691;
+            background: #fff;
+            box-sizing: border-box;
+            text-align: center;
+            border: 1px solid #01c691;
+          }
+          div:nth-child(2) {
+            line-height: 20px;
+            margin: 0 10px;
+          }
+          div:last-child {
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+            line-height: 16px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            background: #01c691;
+          }
         }
       }
     }
@@ -372,6 +565,120 @@ export default {
       padding: 10px 12px;
       overflow-y: scroll;
       max-height: 50vh;
+      .empty {
+        text-align: center;
+        .iconfont {
+          font-size: 64px;
+          color: #eee;
+        }
+      }
+      .km-mechine-items {
+        padding: 0 0 20px 0;
+        .shop-item {
+          display: flex;
+          padding: 16px 0;
+          .img {
+            margin-right: 10px;
+            img {
+              width: 80px;
+              height: 80px;
+            }
+          }
+        }
+        // .km-mechine-content:after{
+        //   content: '';
+        //   height: 20px;
+        //   width: 20px;
+        //   border-bottom: 2px solid red;
+        // }
+        .km-mechine-content {
+          padding: 5px 0 0 0;
+        }
+
+        .shop-info {
+          .mechine-type-name {
+            display: flex;
+            align-items: center;
+            .mechine-type {
+              padding: 2px;
+              font-size: 12px;
+              box-sizing: border-box;
+              background: #ffefef;
+              color: #d38e87;
+              margin-right: 10px;
+            }
+            .mechine-name {
+              // font-size: 14px;
+              font-weight: 500;
+            }
+          }
+          .mechine-specs {
+            font-size: 14px;
+            margin: 5px 0;
+          }
+          .mechine-info {
+            font-size: 12px;
+            color: #bdbdbd;
+            margin-bottom: 8px;
+          }
+          .mechine-price {
+            display: flex;
+            height: 20px;
+            align-items: center;
+            div:first-child {
+              // font-size: 14px;
+              color: #1abb92;
+            }
+            .choose-price {
+              font-size: 14px;
+              margin-left: auto;
+              background: #1abb92;
+              color: #fff;
+              padding: 2px 10px;
+              border-radius: 2px;
+            }
+            .choose-price-understock {
+              font-size: 14px;
+              margin-left: auto;
+              background: #999;
+              color: #fff;
+              padding: 2px 10px;
+              border-radius: 2px;
+            }
+            .goods-num {
+              margin-left: auto;
+              display: flex;
+              padding: 2px 0;
+              div:first-child {
+                width: 20px;
+                height: 20px;
+                border-radius: 50px;
+                line-height: 16px;
+                font-weight: 600;
+                color: #01c691;
+                background: #fff;
+                box-sizing: border-box;
+                text-align: center;
+                border: 1px solid #01c691;
+              }
+              div:nth-child(2) {
+                line-height: 20px;
+                margin: 0 10px;
+              }
+              div:last-child {
+                width: 20px;
+                height: 20px;
+                border-radius: 50px;
+                line-height: 16px;
+                font-weight: 600;
+                color: #fff;
+                text-align: center;
+                background: #01c691;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

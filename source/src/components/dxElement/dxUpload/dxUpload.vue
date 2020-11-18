@@ -161,7 +161,6 @@ export default {
     box-sizing: border-box;
     height: 100px;
     background: #f1f1f1;
-    margin: 0 auto;
     width: 100px;
   }
 }
