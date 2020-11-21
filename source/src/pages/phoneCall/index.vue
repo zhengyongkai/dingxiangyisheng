@@ -123,6 +123,7 @@ export default {
       height: 100px;
       letter-spacing: 2px;
       font-size: 16px;
+      padding: 20px  0;
       resize: none;
     }
   }
@@ -137,7 +138,7 @@ export default {
     .km-form-tab {
       background-color: #f2f2f2;
       color: #000;
-      padding: 5px 10px;
+      padding: 8px 10px;
       margin-bottom: 10px;
       margin-right: 10px;
       font-size: 12px;

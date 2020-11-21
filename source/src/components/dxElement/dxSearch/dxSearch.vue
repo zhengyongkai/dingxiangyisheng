@@ -23,9 +23,6 @@ export default {
   display: flex;
   height: 40px;
   border: 1px solid #eaeaea;
-  -webkit-box-shadow: 0px 5px 5px #f5f5f5;
-  -moz-box-shadow: 0px 5px 5px #f5f5f5;
-  box-shadow: 0px 5px 5px #f5f5f5;
   border-radius: 20px;
   .icon {
     width: 30px;

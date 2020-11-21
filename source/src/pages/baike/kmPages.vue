@@ -1,171 +1,181 @@
 <template>
   <div class="km-page">
     <div class="km-title">
-      <dxHeader :titleName="'皮肤科'">
-        <div slot="right">
-          <afIcon class="iconfont icon-share rightIcon" style="font-size:18px" />
-        </div>
-      </dxHeader>
+      <dxHeader :titleName="'皮肤科'"></dxHeader>
     </div>
-    <div style="z-index:999;position: relative;background:#fff;">
-      <div class="km-search">
-        <dxSearch></dxSearch>
-      </div>
-      <!-- <div class="km-tabs">
-        <div class="km-tab shadow" v-for="(i, v) in list" :key="v">
-          {{ i.name }}
-        </div>
-      </div> -->
-      <!-- <div class="km-advise">
-        <img src="@/assets/advise/km.png" />
-      </div> -->
-
-      <div class="km-menuArea" style="z-index:999;">
-        <div class="km-menudown">
-          <div class="km-menuItem" @click="showMenu(1)">
-            <span
-              :class="temperData == 1 ? 'km-menuTitle-show' : 'km-menuTitle'"
-              >综合排序</span
-            >
-          </div>
-          <div class="km-menuItem" @click="showMenu(2)">
-            <span
-              :class="temperData == 2 ? 'km-menuTitle-show' : 'km-menuTitle'"
-              >全国</span
-            >
-          </div>
-          <div class="km-menuItem" @click="showMenu(3)">
-            <span
-              :class="temperData == 3 ? 'km-menuTitle-show' : 'km-menuTitle'"
-            >
-              医生擅长</span
-            >
-          </div>
-          <div class="km-menuItem" @click="showMenu(4)">
-            <span
-              :class="temperData == 4 ? 'km-menuTitle-show' : 'km-menuTitle'"
-              >筛选</span
-            >
-          </div>
-        </div>
-      </div>
+    <div class="km-search">
+      <dxSearch></dxSearch>
     </div>
-    <div class="menuitem" v-if="temperData != 0" @click="unshowMenuCover">
-      <div class="km-content-item" v-if="temperData == 1">
-        <div class="km-content" @click.stop>
-          <div class="km-menu-items">
-            <div class="km-menu-item">
-              综合排序
-            </div>
-            <div class="km-menu-item">
-              回答次数
-            </div>
-            <div class="km-menu-item">
-              星级评分
-            </div>
-            <div class="km-menu-item">
-              响应时间
+    <div
+      style="position:absolute;top:100px;left:0;right:0;bottom:0;overflow-y:scroll;"
+    >
+      <div>
+        <div>
+          <div class="km-tabs">
+            <div class="km-tab shadow" v-for="(i, v) in list" :key="v">
+              {{ i.name }}
             </div>
           </div>
-        </div>
-      </div>
-      <div class="km-content-item" v-if="temperData == 2">
-        <div class="km-content" @click.stop>
-          <div class="km-content-country">
-            <div class="km-menu-items-left">
-              <div
-                :key="v"
-                v-for="(i, v) in country"
-                @click="changeCity(v)"
-                :class="v == countrySelect ? 'countrySelect area' : 'area'"
-              >
-                {{ i.name }}
+          <div
+            class="km-menuArea"
+            style="z-index:999;position: sticky; top: 0;"
+          >
+            <div class="km-menudown">
+              <div class="km-menuItem" @click="showMenu(1)">
+                <span
+                  :class="
+                    temperData == 1 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                  >综合排序</span
+                >
               </div>
-            </div>
-            <div class="km-menu-items-right">
-              <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
-                {{ i }}
+              <div class="km-menuItem" @click="showMenu(2)">
+                <span
+                  :class="
+                    temperData == 2 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                  >全国</span
+                >
+              </div>
+              <div class="km-menuItem" @click="showMenu(3)">
+                <span
+                  :class="
+                    temperData == 3 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                >
+                  医生擅长</span
+                >
+              </div>
+              <div class="km-menuItem" @click="showMenu(4)">
+                <span
+                  :class="
+                    temperData == 4 ? 'km-menuTitle-show' : 'km-menuTitle'
+                  "
+                  >筛选</span
+                >
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="km-content-item" v-if="temperData == 3">
-        <div class="km-content" @click.stop>
-          <div class="km-content-tab">
-            <div v-for="(i, v) in list" :key="v">{{ i.name }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <dxScroll class="km-body">
-        <dx-pull-fresh :loading="isLoading" @refresh="onRefresh">
           <div>
-            <div>
-              <div class="doctor-content">
-                <div v-for="(v, i) in 10" :key="i" class="doctor-items">
-                  <div class="doctor-item">
-                    <div class="doctor-img">
-                      <img src="@/assets/mockimg/zyk.jpg" alt="" />
+            <div class="km-body">
+              <div>
+                <div>
+        
+                    <div class="doctor-content">
+                      <div v-for="(v, i) in 10" :key="i" class="doctor-items">
+                        <div class="doctor-item">
+                          <div class="doctor-img">
+                            <img src="@/assets/mockimg/zyk.jpg" alt="" />
+                          </div>
+                          <div class="doctor-info">
+                            <div class="doctor-top">
+                              <div class="doctor-name">
+                                付国军
+                              </div>
+                              <div class="font-middle-nomal">
+                                主任医生
+                              </div>
+                            </div>
+                            <div class="doctor-ky">
+                              <div class="font-middle-nomal">
+                                皮肤性病科
+                              </div>
+                              <div class="font-middle-nomal">
+                                沧州市任命医院
+                              </div>
+                            </div>
+                            <div class="doctor-decrease">
+                              擅长：坐疮，尖锐湿疣，甲癣，足癣，股癣，脂溢性皮炎，过敏
+                            </div>
+                            <div class="doctor-pingjia">
+                              <div class="doctor-star">
+                                <afIcon
+                                  class="iconfont icon-star2"
+                                  size="sIcon"
+                                />
+                                <span>5.00</span>
+                              </div>
+                            </div>
+                            <div class="doctor-tab">
+                              <div>
+                                教授
+                              </div>
+                              <div>
+                                快速相应
+                              </div>
+                              <div>
+                                专业性优秀
+                              </div>
+                            </div>
+                            <div class="doctor-price">
+                              <div>
+                                图文 ￥79
+                              </div>
+                              <div>
+                                电话 ￥95
+                              </div>
+                              <span>问医生</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="doctor-info">
-                      <div class="doctor-top">
-                        <div class="doctor-name">
-                          付国军
-                        </div>
-                        <div class="font-middle-nomal">
-                          主任医生
-                        </div>
-                      </div>
-                      <div class="doctor-ky">
-                        <div class="font-middle-nomal">
-                          皮肤性病科
-                        </div>
-                        <div class="font-middle-nomal">
-                          沧州市任命医院
-                        </div>
-                      </div>
-                      <div class="doctor-decrease">
-                        擅长：坐疮，尖锐湿疣，甲癣，足癣，股癣，脂溢性皮炎，过敏
-                      </div>
-                      <div class="doctor-pingjia">
-                        <div class="doctor-star">
-                          <afIcon class="iconfont icon-star2" size="sIcon" />
-                          <span>5.00</span>
-                          <div>月回答 650</div>
-                          <div>月处方 650</div>
-                          <div>12分钟相应</div>
-                        </div>
-                      </div>
-                      <div class="doctor-tab">
-                        <div>
-                          教授
-                        </div>
-                        <div>
-                          快速相应
-                        </div>
-                        <div>
-                          专业性优秀
-                        </div>
-                      </div>
-                      <div class="doctor-price">
-                        <div>
-                          图文 ￥79
-                        </div>
-                        <div>
-                          电话 ￥95
-                        </div>
-                        <span>问医生</span>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
             </div>
           </div>
-        </dx-pull-fresh>
-      </dxScroll>
+        </div>
+      </div>
+      <div class="menuitem" v-if="temperData != 0" @click="unshowMenuCover">
+        <div class="km-content-item" v-if="temperData == 1">
+          <div class="km-content" @click.stop>
+            <div class="km-menu-items">
+              <div class="km-menu-item">
+                综合排序
+              </div>
+              <div class="km-menu-item">
+                回答次数
+              </div>
+              <div class="km-menu-item">
+                星级评分
+              </div>
+              <div class="km-menu-item">
+                响应时间
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="km-content-item" v-if="temperData == 2">
+          <div class="km-content" @click.stop>
+            <div class="km-content-country">
+              <div class="km-menu-items-left">
+                <div
+                  :key="v"
+                  v-for="(i, v) in country"
+                  @click="changeCity(v)"
+                  class="area"
+                  :class="v == countrySelect ? 'countrySelect' : ''"
+                >
+                  {{ i.name }}
+                </div>
+              </div>
+              <div class="km-menu-items-right">
+                <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
+                  {{ i }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="km-content-item" v-if="temperData == 3">
+          <div class="km-content" @click.stop>
+            <div class="km-content-tab">
+              <div v-for="(i, v) in list" :key="v">{{ i.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -179,7 +189,7 @@ export default {
       country: country,
       countrySelect: "",
       isLoading: false,
-      city: [],
+      city: "",
       list: [
         {
           name: "痤疮痘痘"
@@ -222,6 +232,7 @@ export default {
         this.temperData = 0;
       } else {
         this.temperData = index;
+        console.log(document.getElementsByTagName("body"));
       }
     },
     unshowMenuCover() {
@@ -229,7 +240,7 @@ export default {
       this.showMenuCover = false;
     },
     changeCity(i) {
-      // console.log(this.country[i].city[0].area);
+      console.log(this.country[i].city[0].area);
       this.city = this.country[i].city[0].area;
       this.countrySelect = i;
     },
@@ -241,13 +252,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .km-body {
-  position: absolute;
-  width: 100%;
-  top: 161px;
-  bottom: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
   // .doctor-content::after {
   //   content: "";
   //   border: 1px solid red;
@@ -255,12 +259,13 @@ export default {
   // }
   .doctor-content {
     padding: 12px;
-    
-      
-     
+    .doctor-items::after {
+      content: "";
+      border-bottom: 1px solid red;
+      width: 100%;
+    }
     .doctor-item {
-      border-bottom: 1px solid rgb(240, 240, 240);
-      padding: 16px 0 24px 0;
+      padding: 12px 0;
       display: flex;
       .doctor-img {
         margin-right: 12px;
@@ -290,24 +295,16 @@ export default {
         }
         .doctor-decrease {
           margin-top: 12px;
-          font-size: 12px;
+          font-size: 14px;
           color: #999;
         }
 
         .doctor-pingjia {
           margin-top: 12px;
           .doctor-star {
-            display: flex;
+            font-weight: 600;
+            color: #ffca00;
             font-size: 12px;
-            i,
-            span {
-              color: #ffca00;
-              margin-right: 5px;
-            }
-            div {
-              color: #999;
-              margin-right: 5px;
-            }
           }
         }
         .doctor-tab {
@@ -316,10 +313,10 @@ export default {
           div {
             margin-right: 5px;
             border-radius: 5px;
-            background-color: #fafafa;
+            background-color: #f7f7f7;
             font-size: 12px;
             padding: 1px 5px;
-            color: rgb(255, 205, 5);
+            color: #c29a00;
           }
         }
         .doctor-price {
@@ -332,7 +329,7 @@ export default {
           }
           span {
             margin-left: auto;
-            background-color: #f9f9f9;
+            background-color: #eee;
             text-decoration: solid;
             color: #00e96f;
             border-radius: 5px;
@@ -353,7 +350,9 @@ export default {
 }
 .km-search {
   background: #fff;
-  padding: 12px 12px 10px 12px;
+  padding: 12px 12px 20px 12px;
+  height: 30px;
+  position: relative;
   //padding: 0 12px;
   z-index: 201;
 }
@@ -392,6 +391,7 @@ export default {
 .km-menudown {
   display: -webkit-flex;
   display: flex;
+  padding: 0 0 5px 0;
   height: 50px;
   background-color: #fff;
   //box-shadow: 0 2px 12px rgba(100, 101, 102, 0.12);
@@ -470,6 +470,7 @@ export default {
   box-shadow: 0px 2px 8px #eee;
 }
 .km-content {
+  height: 100%;
   padding: 0 12px;
   //position: absolute;
   overflow-x: hidden;
@@ -478,7 +479,7 @@ export default {
   overflow-y: auto;
   box-sizing: border-box;
   max-height: 100%;
-  z-index: 250;
+  z-index: 201;
   background: #fff;
   transition: all 2s;
   animation-duration: 0.2s;
@@ -507,8 +508,8 @@ export default {
       right: 0;
       left: 100px;
       padding: 0 10px;
-      top: 0;
       z-index: 999;
+      top: 0;
       bottom: 0;
       overflow: scroll;
       background: #fff;
@@ -554,11 +555,12 @@ export default {
 .menuitem {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
-  position: absolute;
+  position: fixed;
   width: 100%;
-  top: 161px;
+  top: 220px;
+  height: 100%;
   bottom: 0;
-  overflow: scroll;
+  overflow: hidden;
 }
 .countrySelect {
   background-color: #fff;
@@ -586,7 +588,6 @@ export default {
 
 //将要提出去的
 .font-middle-nomal {
-  font-size: 14px;
+  font-size: 16px;
 }
-
 </style>

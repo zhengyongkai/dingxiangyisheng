@@ -30,8 +30,8 @@
       <div class="add-file" key="addFile" @click="chooseFile" >
         <div class="filecontent">
           <afIcon
-            class="iconfont icon-camera"
-            style="font-size: 40px;maargin-right:0px"
+            class="iconfont icon-camera1"
+            style="font-size: 30px"
           ></afIcon>
           <div>图片</div>
         </div>
@@ -157,7 +157,7 @@ export default {
   color: #999;
   cursor: pointer;
   .filecontent {
-    padding: 20px 0;
+    padding: 25px 0;
     box-sizing: border-box;
     height: 100px;
     background: #f1f1f1;

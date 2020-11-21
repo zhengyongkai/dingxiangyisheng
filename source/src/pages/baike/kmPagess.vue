@@ -3,7 +3,10 @@
     <div class="km-title">
       <dxHeader :titleName="'皮肤科'">
         <div slot="right">
-          <afIcon class="iconfont icon-share rightIcon" style="font-size:18px" />
+          <afIcon
+            class="iconfont icon-share rightIcon"
+            style="font-size:18px"
+          />
         </div>
       </dxHeader>
     </div>
@@ -20,7 +23,7 @@
         <img src="@/assets/advise/km.png" />
       </div> -->
 
-      <div class="km-menuArea" style="z-index:999;">
+      <div class="km-menuArea">
         <div class="km-menudown">
           <div class="km-menuItem" @click="showMenu(1)">
             <span
@@ -50,54 +53,56 @@
         </div>
       </div>
     </div>
-    <div class="menuitem" v-if="temperData != 0" @click="unshowMenuCover">
-      <div class="km-content-item" v-if="temperData == 1">
-        <div class="km-content" @click.stop>
-          <div class="km-menu-items">
-            <div class="km-menu-item">
-              综合排序
-            </div>
-            <div class="km-menu-item">
-              回答次数
-            </div>
-            <div class="km-menu-item">
-              星级评分
-            </div>
-            <div class="km-menu-item">
-              响应时间
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="km-content-item" v-if="temperData == 2">
-        <div class="km-content" @click.stop>
-          <div class="km-content-country">
-            <div class="km-menu-items-left">
-              <div
-                :key="v"
-                v-for="(i, v) in country"
-                @click="changeCity(v)"
-                :class="v == countrySelect ? 'countrySelect area' : 'area'"
-              >
-                {{ i.name }}
+    <transition name="fade">
+      <div class="menuitem" v-show="temperData != 0" @click="unshowMenuCover">
+        <div class="km-content-item" v-if="temperData == 1">
+          <div class="km-content" @click.stop>
+            <div class="km-menu-items">
+              <div class="km-menu-item">
+                综合排序
               </div>
-            </div>
-            <div class="km-menu-items-right">
-              <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
-                {{ i }}
+              <div class="km-menu-item">
+                回答次数
+              </div>
+              <div class="km-menu-item">
+                星级评分
+              </div>
+              <div class="km-menu-item">
+                响应时间
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="km-content-item" v-if="temperData == 3">
-        <div class="km-content" @click.stop>
-          <div class="km-content-tab">
-            <div v-for="(i, v) in list" :key="v">{{ i.name }}</div>
+        <div class="km-content-item" v-if="temperData == 2">
+          <div class="km-content" @click.stop>
+            <div class="km-content-country">
+              <div class="km-menu-items-left">
+                <div
+                  :key="v"
+                  v-for="(i, v) in country"
+                  @click="changeCity(v)"
+                  :class="v == countrySelect ? 'countrySelect area' : 'area'"
+                >
+                  {{ i.name }}
+                </div>
+              </div>
+              <div class="km-menu-items-right">
+                <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
+                  {{ i }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="km-content-item" v-if="temperData == 3">
+          <div class="km-content" @click.stop>
+            <div class="km-content-tab">
+              <div v-for="(i, v) in list" :key="v">{{ i.name }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
     <div>
       <dxScroll class="km-body">
         <dx-pull-fresh :loading="isLoading" @refresh="onRefresh">
@@ -255,9 +260,7 @@ export default {
   // }
   .doctor-content {
     padding: 12px;
-    
-      
-     
+
     .doctor-item {
       border-bottom: 1px solid rgb(240, 240, 240);
       padding: 16px 0 24px 0;
@@ -392,6 +395,7 @@ export default {
 .km-menudown {
   display: -webkit-flex;
   display: flex;
+
   height: 50px;
   background-color: #fff;
   //box-shadow: 0 2px 12px rgba(100, 101, 102, 0.12);
@@ -538,6 +542,10 @@ export default {
 }
 .km-content-item {
   height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
   transition: all 2s;
 }
 .km-content-body {
@@ -554,7 +562,7 @@ export default {
 .menuitem {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 161px;
   bottom: 0;
@@ -588,5 +596,12 @@ export default {
 .font-middle-nomal {
   font-size: 14px;
 }
-
+.fade-enter-active,
+.fade-leave-active {
+transform: translate3d(0,-100%,0);
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translate3d(0, -100%, 0);
+}
 </style>
