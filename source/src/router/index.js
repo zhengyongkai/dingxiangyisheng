@@ -5,7 +5,7 @@ import Index from "@/pages/index/IndexPage";
 import BaikePage from "@/pages/index/baikePage";
 import HomePage from "@/pages/index/HomePage";
 import wysPage from "@/pages/baike/wysPage";
-import kmPage from "@/pages/baike/kmPage"; 
+import kmPage from "@/pages/baike/kmPagess"; 
 import phoneCallPage from "@/pages/phoneCall/index"; 
 import mechine from '@/pages/mechine/index'
 import chooseMechine from '@/pages/mechine/chooseMechine/chooseMechine'

@@ -45,7 +45,7 @@ export default {
 * {
   padding: 0;
   margin: 0;
-  /* font-family: "fangping"; */
+  font-family: "fangping";
 }
 
 html,
