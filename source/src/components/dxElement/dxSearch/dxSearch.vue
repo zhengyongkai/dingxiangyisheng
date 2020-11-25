@@ -56,21 +56,18 @@ export default {
 ::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #b8b7b7;
-  text-decoration: underline;
   font-size: 16px;
 }
 
 ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #b8b7b7;
-  text-decoration: underline;
   font-size: 16px;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #b8b7b7;
-  text-decoration: underline;
   font-size: 16px;
 }
 </style>

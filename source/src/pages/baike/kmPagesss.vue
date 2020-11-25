@@ -10,21 +10,21 @@
         </div>
       </dxHeader>
     </div>
-    <div class="km-search">
-      <dxSearch></dxSearch>
-    </div>
-    <div class="km-bottom" :style="temperData != 0 ? 'overflow:hidden' : ''">
-      <div class="km-tabs">
+    <div style="z-index:999;position: relative;background:#fff;">
+      <div class="km-search">
+        <dxSearch></dxSearch>
+      </div>
+      <!-- <div class="km-tabs">
         <div class="km-tab shadow" v-for="(i, v) in list" :key="v">
           {{ i.name }}
         </div>
-      </div>
-      <div
-        class="km-menuArea"
-        style="	position:sticky;
-	      top:0px;"
-      >
-        <div class="km-menudown" ref="menu">
+      </div> -->
+      <!-- <div class="km-advise">
+        <img src="@/assets/advise/km.png" />
+      </div> -->
+
+      <div class="km-menuArea" style="z-index:999;">
+        <div class="km-menudown">
           <div class="km-menuItem" @click="showMenu(1)">
             <span
               :class="temperData == 1 ? 'km-menuTitle-show' : 'km-menuTitle'"
@@ -51,166 +51,126 @@
             >
           </div>
         </div>
+
+          <transition name="fade">
+            <div class="dx-dropdown" v-show="temperData != 0">
+              <div
+                @click="temperData = 0"
+                class="dx-overlay"
+                style="z-index: 2057; position: absolute; animation-duration: 0.2s;"
+              ></div>
+              <div
+                class="dx-popup dx-popup--top dx-dropdown-item__content"
+                style="transition-duration: 0.2s; z-index: 2058;"
+              >
+                <div v-if="temperData == 1">
+                  <div
+                    @click="chooseOne(i)"
+                    v-for="(v, i) in lists"
+                    :key="i"
+                    :class="selectOne == i ? 'green' : ''"
+                    class="  dx-cell dx-cell--clickable dx-dropdown-item__option dx-dropdown-item__option--active"
+                  >
+                    <div class="dx-cell__title">
+                      <span>{{ v }}</span>
+                    </div>
+                    <div class="dx-cell__value" v-if="selectOne == i">
+                      <i
+                        class="van-icon van-icon-success van-dropdown-item__icon"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="temperData == 2">
+                  <div class="km-content-country">
+                    <div class="km-menu-items-left">
+                      <div
+                        :key="v"
+                        v-for="(i, v) in country"
+                        @click="changeCity(v)"
+                        class="area"
+                        :class="v == countrySelect ? 'countrySelect' : ''"
+                      >
+                        {{ i.name }}
+                      </div>
+                    </div>
+                    <div class="km-menu-items-right">
+                      <div
+                        :key="v"
+                        v-for="(i, v) in city"
+                        @click="areaSelect(i)"
+                      >
+                        {{ i }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </transition>
       </div>
-      <div>
-        <div>
-          <div
-            class="menuitem"
-            :style="'top:' + top + 'px'"
-            v-show="temperData != 0"
-            @click="unshowMenuCover"
-          >
-            <div class="km-content-item" v-if="temperData == 1">
-              <div class="km-content" @click.stop>
-                <div class="km-menu-items">
-                  <div
-                    class="km-menu-item"
-                    @click="chooseOne(0)"
-                    :class="selectOne == 0 ? 'green' : ''"
-                  >
-                    <div>综合排序</div>
-                    <div>
-                      <afIcon
-                        class="iconfont icon-check"
-                        v-if="selectOne == 0"
-                      ></afIcon>
-                    </div>
-                  </div>
-                  <div
-                    class="km-menu-item"
-                    @click="chooseOne(1)"
-                    :class="selectOne == 1 ? 'green' : ''"
-                  >
-                    <div>回答次数</div>
-                    <div>
-                      <afIcon
-                        class="iconfont icon-check"
-                        v-if="selectOne == 1"
-                      ></afIcon>
-                    </div>
-                  </div>
-                  <div
-                    class="km-menu-item"
-                    @click="chooseOne(2)"
-                    :class="selectOne == 2 ? 'green' : ''"
-                  >
-                    <div>星级评分</div>
-                    <div>
-                      <afIcon
-                        class="iconfont icon-check"
-                        v-if="selectOne == 2"
-                      ></afIcon>
-                    </div>
-                  </div>
-                  <div
-                    class="km-menu-item"
-                    @click="chooseOne(3)"
-                    :class="selectOne == 3 ? 'green' : ''"
-                  >
-                    <div>响应时间</div>
-                    <div>
-                      <afIcon
-                        class="iconfont icon-check"
-                        v-if="selectOne == 3"
-                      ></afIcon>
-                    </div>
-                  </div>
+      <div class="km-body">
+        <dxScroll class="km-body">
+          <div class="doctor-content">
+            <div v-for="(v, i) in 10" :key="i" class="doctor-items">
+              <div class="doctor-item">
+                <div class="doctor-img">
+                  <img src="@/assets/mockimg/zyk.jpg" alt="" />
                 </div>
-              </div>
-            </div>
-            <div class="km-content-item" v-if="temperData == 2">
-              <div class="km-content-city" @click.stop>
-                <div class="km-content-country">
-                  <div class="km-menu-items-left">
-                    <div
-                      :key="v"
-                      v-for="(i, v) in country"
-                      @click="changeCity(v)"
-                      :class="
-                        v == countrySelect ? 'countrySelect area' : 'area'
-                      "
-                    >
-                      {{ i.name }}
+                <div class="doctor-info">
+                  <div class="doctor-top">
+                    <div class="doctor-name">
+                      付国军
+                    </div>
+                    <div class="font-middle-nomal">
+                      主任医生
                     </div>
                   </div>
-                  <div class="km-menu-items-right">
-                    <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
-                      {{ i }}
+                  <div class="doctor-ky">
+                    <div class="font-middle-nomal">
+                      皮肤性病科
+                    </div>
+                    <div class="font-middle-nomal">
+                      沧州市任命医院
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="km-content-item" v-if="temperData == 3">
-              <div class="km-content" @click.stop>
-                <div class="km-content-tab">
-                  <div v-for="(i, v) in list" :key="v">{{ i.name }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="km-body">
-            <div class="doctor-content">
-              <div v-for="(v, i) in 10" :key="i" class="doctor-items">
-                <div class="doctor-item">
-                  <div class="doctor-img">
-                    <img src="@/assets/mockimg/zyk.jpg" alt="" />
+                  <div class="doctor-decrease">
+                    擅长：坐疮，尖锐湿疣，甲癣，足癣，股癣，脂溢性皮炎，过敏
                   </div>
-                  <div class="doctor-info">
-                    <div class="doctor-top">
-                      <div class="doctor-name">
-                        付国军
-                      </div>
-                      <div class="font-middle-nomal">
-                        主任医生
-                      </div>
+                  <div class="doctor-pingjia">
+                    <div class="doctor-star">
+                      <afIcon class="iconfont icon-star2" size="sIcon" />
+                      <span>5.00</span>
+                      <div>月回答 650</div>
+                      <div>月处方 650</div>
+                      <div>12分钟相应</div>
                     </div>
-                    <div class="doctor-ky">
-                      <div class="font-middle-nomal">
-                        皮肤性病科
-                      </div>
-                      <div class="font-middle-nomal">
-                        沧州市任命医院
-                      </div>
+                  </div>
+                  <div class="doctor-tab">
+                    <div>
+                      教授
                     </div>
-                    <div class="doctor-decrease">
-                      擅长：坐疮，尖锐湿疣，甲癣，足癣，股癣，脂溢性皮炎，过敏
+                    <div>
+                      快速相应
                     </div>
-                    <div class="doctor-pingjia">
-                      <div class="doctor-star">
-                        <afIcon class="iconfont icon-star2" size="sIcon" />
-                        <span>5.00</span>
-                        <div>月回答 650</div>
-                        <div>月处方 650</div>
-                        <div>12分钟相应</div>
-                      </div>
+                    <div>
+                      专业性优秀
                     </div>
-                    <div class="doctor-tab">
-                      <div>
-                        教授
-                      </div>
-                      <div>
-                        快速相应
-                      </div>
-                      <div>
-                        专业性优秀
-                      </div>
+                  </div>
+                  <div class="doctor-price">
+                    <div>
+                      图文 ￥79
                     </div>
-                    <div class="doctor-price">
-                      <div>
-                        图文 ￥79
-                      </div>
-                      <div>
-                        电话 ￥95
-                      </div>
-                      <span>问医生</span>
+                    <div>
+                      电话 ￥95
                     </div>
+                    <span>问医生</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </dxScroll>
       </div>
     </div>
   </div>
@@ -222,9 +182,8 @@ export default {
     return {
       showMenuCover: false,
       temperData: 0,
-      selectOne: "",
+      selectOne: 0,
       country: country,
-      top: 0,
       countrySelect: "",
       isLoading: false,
       city: [],
@@ -244,6 +203,14 @@ export default {
         {
           name: "麻疹"
         }
+      ],
+      lists: [
+        "综合排序",
+        "回答次数",
+        "星际评分",
+        "响应时间",
+        "价格从高到低",
+        "价格从低到高"
       ]
     };
   },
@@ -267,9 +234,6 @@ export default {
       // }
     },
     showMenu(index) {
-      let refs = this.$refs.menu;
-      // console.log(refs.getBoundingClientRect().top)
-      this.top = refs.getBoundingClientRect().top + 50;
       this.showMenuCover = true;
       if (this.temperData == index) {
         this.showMenuCover = false;
@@ -298,8 +262,14 @@ export default {
   display: none;
 }
 .km-body {
+  -webkit-overflow-scrolling: auto;
+  position: fixed;
   width: 100%;
-
+  top: 161px;
+  bottom: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
   // .doctor-content::after {
   //   content: "";
   //   border: 1px solid red;
@@ -397,7 +367,6 @@ export default {
 .km-title {
   width: 100%;
   height: 46px;
-  z-index: 999;
 }
 
 .km-page {
@@ -410,7 +379,7 @@ export default {
 }
 .km-tabs {
   margin: 10px 0;
-  padding: 12px 12px;
+  padding: 0 12px;
   z-index: 202;
   display: -webkit-box;
   overflow-x: auto;
@@ -421,7 +390,7 @@ export default {
     background-color: transparent;
   }
   .km-tab {
-    height: 42px;
+    height: 40px;
     box-sizing: border-box;
     padding: 10px;
     width: 80px;
@@ -443,7 +412,6 @@ export default {
 .km-menudown {
   display: -webkit-flex;
   display: flex;
-
   height: 50px;
   background-color: #fff;
   //box-shadow: 0 2px 12px rgba(100, 101, 102, 0.12);
@@ -509,111 +477,21 @@ export default {
 }
 
 .km-menuArea {
-  z-index: 999;
-}
-.shadow {
-  box-shadow: 0px 2px 8px #eee;
-}
-.km-content-city {
-  height: 100%;
-}
-.km-content,
-.km-content-city {
-  padding: 0 12px;
-  //position: absolute;
-  overflow-x: hidden;
-  width: 100%;
-  left: 0;
-
   position: relative;
-  overflow-y: auto;
-  box-sizing: border-box;
-  max-height: 100%;
-  z-index: 999;
-  background: #fff;
-  .km-content-country {
-    height: 100%;
-    display: flex;
-    .km-menu-items-left {
-      position: absolute;
-      height: 100%;
-      top: 0;
-      bottom: 0;
-      z-index: 999;
-      left: 0;
-      padding: 0;
-      overflow: scroll;
-      width: 25%;
-      background: #eee;
-    }
-    .km-menu-items-left div {
-      font-size: 16px;
-      height: 50px;
-      text-align: left;
-      line-height: 50px;
-    }
-    .km-menu-items-right {
-      position: absolute;
-      right: 0;
-      left: 25%;
-      height: 100%;
-      padding: 0 10px;
-      top: 0;
-      z-index: 999;
-      bottom: 0;
-      overflow: scroll;
-      background: #fff;
-      flex: 1;
-    }
-    .km-menu-items-right div {
-      font-size: 16px;
-      height: 50px;
-      line-height: 50px;
-    }
-  }
-}
-.km-content::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: #eee;
-}
-.km-content::-webkit-scrollbar {
-  width: 5px;
-  height: 1px;
-}
-.km-menu-items {
-  font-size: 14px;
-  .km-menu-item {
-    display: flex;
-    padding: 16px 8px;
-    border-bottom: 1px solid #eee;
-    div:last-child {
-      margin-left: auto;
-    }
-  }
-}
-.km-content-item {
-  height: 100%;
-  position: absolute;
+  right: 0;
   left: 0;
-  top: 0;
-  width: 100%;
-}
-.km-content-body {
-  height: 800px;
-}
-.km-cover {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  z-index: 20;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  //bottom: 50px;
+  z-index: 10;
+  overflow: hidden;
+  overflow-y: auto;
 }
 .menuitem {
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
-  position: fixed;
+  position: absolute;
   width: 100%;
+  top: 161px;
   bottom: 0;
   overflow: scroll;
 }
@@ -645,26 +523,129 @@ export default {
 .font-middle-nomal {
   font-size: 14px;
 }
+
+.dx-dropdown {
+  position: fixed;
+  top: 161px;
+  height: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  .dx-overlay {
+    z-index: 999;
+    position: absolute;
+    animation-duration: 0.2s;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  .dx-dropdown-item__content {
+    position: absolute;
+    max-height: 80%;
+  }
+  .dx-popup--top {
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .dx-popup {
+    max-height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dx-dropdown-item__option {
+    text-align: left;
+  }
+
+  .dx-cell--clickable {
+    // cursor: pointer;
+  }
+
+  .dx-cell {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 16px;
+    overflow: hidden;
+    color: #323233;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: #fff;
+  }
+  .dx-cell::after {
+    position: absolute;
+    box-sizing: border-box;
+    content: " ";
+    pointer-events: none;
+    right: 16px;
+    bottom: 0;
+    left: 16px;
+    border-bottom: 1px solid #d9d9d9;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+  .dx-cell__value {
+    margin-left: auto;
+  }
+}
 .fade-enter-active,
 .fade-leave-active {
-  transform: translate3d(0, -100%, 0);
+  transition: opacity 0.5s;
 }
-.fade-enter,
-.fade-leave-to {
-  transform: translate3d(0, -100%, 0);
-}
-.km-bottom {
-  z-index: 999;
-  -webkit-overflow-scrolling: touch;
-  position: absolute;
-  background: #fff;
-  left: 0;
-  right: 0;
-  top: 105px;
-  bottom: 0;
-  overflow: scroll;
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 .green {
-  color: #27d700;
+  color: #2fac8a !important;
+}
+.km-content-country {
+  display: flex;
+  height: calc(100vh - 161px);
+  font-size: 14px;
+  .km-menu-items-left {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    left: 0;
+    padding: 0;
+    overflow: scroll;
+    width: 100px;
+    background: #eee;
+  }
+  .km-menu-items-left div {
+    height: 50px;
+    text-align: left;
+    line-height: 50px;
+  }
+  .km-menu-items-right {
+    position: absolute;
+    right: 0;
+    left: 100px;
+    padding: 0 10px;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    overflow: scroll;
+    background: #fff;
+    flex: 1;
+  }
+  .km-menu-items-right div {
+    height: 50px;
+    line-height: 50px;
+  }
 }
 </style>
