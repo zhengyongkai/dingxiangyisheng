@@ -27,7 +27,7 @@ export default new Router({
     {
       path: "/baike",
       name: "baike",
-      component: BaikePage
+      component: HelloWorld
     },
     {
       path: "/home",

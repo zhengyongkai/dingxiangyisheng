@@ -23,7 +23,7 @@
         <img src="@/assets/advise/km.png" />
       </div> -->
 
-      <div class="km-menuArea" style="z-index:999;">
+      <div>
         <div class="km-menudown">
           <div class="km-menuItem" @click="showMenu(1)">
             <span
@@ -52,62 +52,58 @@
           </div>
         </div>
 
-          <transition name="fade">
-            <div class="dx-dropdown" v-show="temperData != 0">
-              <div
-                @click="temperData = 0"
-                class="dx-overlay"
-                style="z-index: 2057; position: absolute; animation-duration: 0.2s;"
-              ></div>
-              <div
-                class="dx-popup dx-popup--top dx-dropdown-item__content"
-                style="transition-duration: 0.2s; z-index: 2058;"
-              >
-                <div v-if="temperData == 1">
-                  <div
-                    @click="chooseOne(i)"
-                    v-for="(v, i) in lists"
-                    :key="i"
-                    :class="selectOne == i ? 'green' : ''"
-                    class="  dx-cell dx-cell--clickable dx-dropdown-item__option dx-dropdown-item__option--active"
-                  >
-                    <div class="dx-cell__title">
-                      <span>{{ v }}</span>
-                    </div>
-                    <div class="dx-cell__value" v-if="selectOne == i">
-                      <i
-                        class="van-icon van-icon-success van-dropdown-item__icon"
-                      ></i>
-                    </div>
+        <transition name="fade">
+          <div class="dx-dropdown" v-show="temperData != 0">
+            <div
+              @click="temperData = 0"
+              class="dx-overlay"
+              style="z-index: 2057; position: absolute; animation-duration: 0.2s;"
+            ></div>
+            <div
+              class="dx-popup dx-popup--top dx-dropdown-item__content"
+              style="transition-duration: 0.2s; z-index: 2058;"
+            >
+              <div v-if="temperData == 1">
+                <div
+                  @click="chooseOne(i)"
+                  v-for="(v, i) in lists"
+                  :key="i"
+                  :class="selectOne == i ? 'green' : ''"
+                  class="  dx-cell dx-cell--clickable dx-dropdown-item__option dx-dropdown-item__option--active"
+                >
+                  <div class="dx-cell__title">
+                    <span>{{ v }}</span>
+                  </div>
+                  <div class="dx-cell__value" v-if="selectOne == i">
+                    <i
+                      class="van-icon van-icon-success van-dropdown-item__icon"
+                    ></i>
                   </div>
                 </div>
-                <div v-if="temperData == 2">
-                  <div class="km-content-country">
-                    <div class="km-menu-items-left">
-                      <div
-                        :key="v"
-                        v-for="(i, v) in country"
-                        @click="changeCity(v)"
-                        class="area"
-                        :class="v == countrySelect ? 'countrySelect' : ''"
-                      >
-                        {{ i.name }}
-                      </div>
+              </div>
+              <div v-if="temperData == 2">
+                <div class="km-content-country">
+                  <div class="km-menu-items-left">
+                    <div
+                      :key="v"
+                      v-for="(i, v) in country"
+                      @click="changeCity(v)"
+                      class="area"
+                      :class="v == countrySelect ? 'countrySelect' : ''"
+                    >
+                      {{ i.name }}
                     </div>
-                    <div class="km-menu-items-right">
-                      <div
-                        :key="v"
-                        v-for="(i, v) in city"
-                        @click="areaSelect(i)"
-                      >
-                        {{ i }}
-                      </div>
+                  </div>
+                  <div class="km-menu-items-right">
+                    <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
+                      {{ i }}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </transition>
+          </div>
+        </transition>
       </div>
       <div class="km-body">
         <dxScroll class="km-body">
@@ -527,7 +523,6 @@ export default {
 .dx-dropdown {
   position: fixed;
   top: 161px;
-  height: 100%;
   right: 0;
   bottom: 0;
   left: 0;
