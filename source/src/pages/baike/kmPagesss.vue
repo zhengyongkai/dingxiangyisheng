@@ -63,25 +63,25 @@
               class="dx-popup dx-popup--top dx-dropdown-item__content"
               style="transition-duration: 0.2s; z-index: 2058;"
             >
-              <div v-if="temperData == 1">
+              <div v-show="temperData == 1">
                 <div
-                  @click="chooseOne(i)"
+                  @click="chooseOne(i, 'composite')"
                   v-for="(v, i) in lists"
                   :key="i"
-                  :class="selectOne == i ? 'green' : ''"
+                  :class="form.composite == i ? 'green' : ''"
                   class="  dx-cell dx-cell--clickable dx-dropdown-item__option dx-dropdown-item__option--active"
                 >
                   <div class="dx-cell__title">
                     <span>{{ v }}</span>
                   </div>
-                  <div class="dx-cell__value" v-if="selectOne == i">
+                  <div class="dx-cell__value" v-if="form.composite == i">
                     <i
                       class="van-icon van-icon-success van-dropdown-item__icon"
                     ></i>
                   </div>
                 </div>
               </div>
-              <div v-if="temperData == 2">
+              <div v-show="temperData == 2">
                 <div class="km-content-country">
                   <div class="km-menu-items-left">
                     <div
@@ -95,10 +95,58 @@
                     </div>
                   </div>
                   <div class="km-menu-items-right">
-                    <div :key="v" v-for="(i, v) in city" @click="areaSelect(i)">
+                    <div
+                      :key="v"
+                      v-for="(i, v) in city"
+                      @click="areaSelect(i)"
+                      :class="form.country == i ? 'green' : ''"
+                    >
                       {{ i }}
                     </div>
                   </div>
+                </div>
+              </div>
+              <div v-show="temperData == 3">
+                <div class="km-content" @click.stop>
+                  <div class="km-content-tab">
+                    <div
+                      v-for="(i, v) in list"
+                      :key="v"
+                      :class="form.decrease == v ? 'greenTab' : ''"
+                      @click="chooseOne(v, 'decrease')"
+                    >
+                      {{ i.name }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-show="temperData == 4">
+                <div class="km-content" @click.stop>
+                  <div class="preparationList-content">
+                    <div
+                      v-for="(i, v) in preparationList"
+                      :key="v"
+                      class="preparationList-item"
+                    >
+                      <div class="preparationList-title">
+                        {{ i.name }}
+                      </div>
+                      <div class="km-content-tab">
+                        <div
+                          @click="choosePreparationList(i.pid, z)"
+                          v-for="(k, z) in i.tag"
+                          :key="z"
+                          :class="form['preparation'][v] == z ? 'greenTab' : ''"
+                        >
+                          {{ k.name }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="fixButton">
+                  <div @click="reset">重置</div>
+                  <div @click="submitPreparationList">完成</div>
                 </div>
               </div>
             </div>
@@ -183,21 +231,91 @@ export default {
       countrySelect: "",
       isLoading: false,
       city: [],
+      form: {
+        composite: 0,
+        country: "",
+        decrease: null,
+        preparation: {}
+      },
+      preparationList: [
+        {
+          name: "问诊方式",
+          pid: 0,
+          tag: [
+            { name: "图文问诊", id: 0 },
+            { name: "电话问诊", id: 1 }
+          ]
+        },
+        {
+          name: "价格区间",
+          pid: 1,
+          tag: [
+            { name: "10-19", id: 0 },
+            { name: "20-29", id: 1 },
+            { name: "30-50", id: 0 },
+            { name: "50以上", id: 0 }
+          ]
+        },
+        {
+          name: "热门标签",
+          pid: 2,
+          tag: [
+            { name: "全国百强医院", id: 0 },
+            { name: "耐心细致", id: 1 },
+            { name: "快速响应", id: 0 },
+            { name: "名院主任", id: 0 }
+          ]
+        },
+        {
+          name: "医生职称",
+          pid: 3,
+          tag: [
+            { name: "医师", id: 0 },
+            { name: "主治医师", id: 1 },
+            { name: "副主任医师", id: 1 },
+            { name: "主任医师", id: 1 }
+          ]
+        }
+      ],
       list: [
         {
-          name: "痤疮痘痘"
+          name: "过敏"
+        },
+        {
+          name: "肺炎"
         },
         {
           name: "湿疹"
         },
         {
-          name: "过敏"
+          name: "黄疸"
         },
         {
-          name: "脚气"
+          name: "消化不良"
         },
         {
-          name: "麻疹"
+          name: "腹泻"
+        },
+        {
+          name: "发热"
+        },
+        {
+          name: "鼻炎"
+        },
+        {
+          name: "哮喘"
+        },
+        {
+          name: "支气管炎"
+        },
+        {
+          name: "幼儿急诊"
+        },
+        {
+          name: "乳糖不耐受"
+        },
+        {
+          name: "手足口病"
         }
       ],
       lists: [
@@ -211,8 +329,20 @@ export default {
     };
   },
   methods: {
-    chooseOne(i) {
-      this.selectOne = i;
+    choosePreparationList(v, i) {
+      if (this.form["preparation"][v] == i) {
+        this.form["preparation"][v] = null;
+      } else {
+        this.form["preparation"][v] = i;
+      }
+      this.$forceUpdate();
+    },
+    closeToast() {
+      this.temperData = 0;
+    },
+    chooseOne(i, type) {
+      this.form[type] = i;
+      this.closeToast();
     },
     onRefresh() {
       this.isLoading = true;
@@ -246,9 +376,17 @@ export default {
       // console.log(this.country[i].city[0].area);
       this.city = this.country[i].city[0].area;
       this.countrySelect = i;
+      this.showMenuCover = false;
     },
     areaSelect(data) {
-      this.$notify(data);
+      this.form.country = data;
+      this.temperData = 0;
+    },
+    reset() {
+      this.form.preparation = {};
+    },
+    submitPreparationList() {
+      this.closeToast();
     }
   }
 };
@@ -317,7 +455,7 @@ export default {
             font-size: 12px;
             i,
             span {
-              color: #ffca00;
+              color: #E7AF58;
               margin-right: 5px;
             }
             div {
@@ -335,7 +473,7 @@ export default {
             background-color: #fafafa;
             font-size: 12px;
             padding: 1px 5px;
-            color: rgb(255, 205, 5);
+            color: #E7AF58;
           }
         }
         .doctor-price {
@@ -499,7 +637,7 @@ export default {
   padding: 0 10px;
 }
 .km-content-tab {
-  padding: 10px;
+  padding: 15px 10px 0 10px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -507,12 +645,12 @@ export default {
   min-width: 50px;
   text-align: center;
   padding: 5px;
-  border-radius: 5px;
-  background-color: #eeeeee;
-  margin-right: 30px;
-  margin-bottom: 10px;
+  border-radius: 2px;
+  background-color: #FAFAFA;
+  margin-right: 15px;
+  margin-bottom: 15px;
   color: #000;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 //将要提出去的
@@ -605,6 +743,10 @@ export default {
 .green {
   color: #2fac8a !important;
 }
+.greenTab{
+  color: #2fac8a !important;
+  background: #ddf8ea !important;
+}
 .km-content-country {
   display: flex;
   height: calc(100vh - 161px);
@@ -641,6 +783,59 @@ export default {
   .km-menu-items-right div {
     height: 50px;
     line-height: 50px;
+  }
+}
+.preparationList-content {
+  padding: 20px 10px 80px 20px;
+  .preparationList-item {
+    margin-bottom: 10px;
+    .preparationList-title {
+      font-size: 12px;
+    }
+    .km-content-tab {
+      margin-top: 16px;
+      padding: 0;
+      div {
+        font-size: 12px;
+      }
+    }
+  }
+}
+.fixButton {
+  position: absolute;
+  height: 50px;
+  display: flex;
+  font-size: 14px;
+  bottom: 0;
+  width: 100%;
+  padding: 0 5px;
+  line-height: 40px;
+  box-sizing: border-box;
+  border-top: 1px solid #eee;
+  div {
+    text-decoration: solid;
+  }
+  div:first-child {
+    background: #eee;
+    border-radius: 10px;
+    color: #2fac8a;
+    padding: 0 10px;
+
+    width: 20%;
+
+    text-align: center;
+    margin: 5px 10px 5px 0;
+    border-radius: 10px;
+  }
+  div:last-child {
+    background: #eee;
+    border-radius: 10px;
+    color: #fff;
+    background: #2fac8a;
+    flex: 1;
+    text-align: center;
+    border-radius: 10px;
+    margin: 5px 10px 5px 0;
   }
 }
 </style>

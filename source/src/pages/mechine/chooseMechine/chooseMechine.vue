@@ -13,7 +13,6 @@
         </div>
       </div>
       <dxScroll class="km-body" ref="scroll">
-        <dx-pull-fresh :loading="isLoading" @refresh="onRefresh">
           <div style="min-height:80vh">
             <div class="km-renzheng">
               <div>安心购 保障用品</div>
@@ -48,7 +47,7 @@
                         @click="chooseMechine(v, i)"
                         v-if="!list[v] && i.stock != 0"
                       >
-                        选择规格
+                        选择该药
                       </div>
                       <div
                         class="choose-price-understock"
@@ -67,12 +66,11 @@
               </div>
             </div>
           </div>
-        </dx-pull-fresh>
       </dxScroll>
       <div class="km-shop-bottom">
         <div class="icon" @click="hiddenBottom">
           <afIcon class="iconfont icon-cart"></afIcon>
-          <div class="spot">{{total}}</div>
+          <div class="spot">{{ total }}</div>
         </div>
         <div class="text">
           <div>已选择{{ Object.keys(list).length }}件药品</div>
@@ -83,8 +81,13 @@
         </div>
       </div>
       <transition name="plus-icon">
-        <div class="shopCart" v-if="showBottom" @click="handleCartShow">
-          <div class="shopCartContent" @click.stop>
+        <div class="shopCart" v-if="showBottom">
+          <div class="dx-overlay" @click="showBottom = false"></div>
+          <div
+            class="shopCartContent"
+            v-if="showBottom"
+            @click.stop="handleCartShow"
+          >
             <div class="content-top">
               <div>药品清单</div>
               <div @click="hiddenBottom">
@@ -125,7 +128,7 @@
               </div>
               <div class="empty" v-else>
                 <div><i class="iconfont icon-empty"></i></div>
-                暂无物品
+                <div>暂无物品</div>
               </div>
             </div>
           </div>
@@ -335,7 +338,7 @@ export default {
   right: 12px;
   left: 12px;
   position: fixed;
-  top: 120px;
+  top: 125px;
   overflow: hidden;
   bottom: 50px;
   .km-renzheng {
@@ -373,12 +376,13 @@ export default {
         }
       }
     }
-    // .km-mechine-content:after{
-    //   content: '';
-    //   height: 20px;
-    //   width: 20px;
-    //   border-bottom: 2px solid red;
-    // }
+    .km-mechine-content:after {
+      content: "";
+      height: 8px;
+      display: block;
+      width: 100%;
+      border-bottom: 1px solid #eee;
+    }
     .km-mechine-content {
       padding: 5px 0 0 0;
     }
@@ -402,12 +406,20 @@ export default {
       }
       .mechine-specs {
         font-size: 14px;
-        margin: 5px 0;
+        margin: 8px 0;
       }
       .mechine-info {
+        text-overflow: -o-ellipsis-lastline;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
         font-size: 12px;
         color: #bdbdbd;
-        margin-bottom: 8px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
       }
       .mechine-price {
         display: flex;
@@ -422,7 +434,7 @@ export default {
           margin-left: auto;
           background: #1abb92;
           color: #fff;
-          padding: 2px 10px;
+          padding: 5px 10px;
           border-radius: 2px;
         }
         .choose-price-understock {
@@ -440,10 +452,9 @@ export default {
           div:first-child {
             width: 20px;
             height: 20px;
+            box-sizing: border-box;
             border-radius: 50px;
-            line-height: 16px;
             font-weight: 600;
-            color: #01c691;
             background: #fff;
             box-sizing: border-box;
             text-align: center;
@@ -456,10 +467,12 @@ export default {
           div:last-child {
             width: 20px;
             height: 20px;
+            box-sizing: border-box;
             border-radius: 50px;
-            line-height: 16px;
             font-weight: 600;
             color: #fff;
+            font-size: 18px;
+            line-height: 20px;
             text-align: center;
             background: #01c691;
           }
@@ -534,13 +547,23 @@ export default {
 }
 .shopCart {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.7);
   top: 0;
   z-index: 201;
   left: 0;
   right: 0;
   bottom: 0;
+  .dx-overlay {
+    z-index: 100;
+    position: absolute;
+    animation-duration: 0.2s;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
   .shopCartContent {
+    z-index: 2058;
     padding: 12px 0;
     position: absolute;
     bottom: 50px;
@@ -567,6 +590,7 @@ export default {
       max-height: 50vh;
       .empty {
         text-align: center;
+        font-size: 12px;
         .iconfont {
           font-size: 64px;
           color: #eee;
@@ -609,7 +633,7 @@ export default {
             }
             .mechine-name {
               // font-size: 14px;
-              font-weight: 500;
+              font-weight: 530;
             }
           }
           .mechine-specs {
@@ -682,16 +706,29 @@ export default {
     }
   }
 }
-.plus-icon-enter-active {
-  transition: all 0.5s;
-}
-.plus-icon-enter {
-  opacity: 0;
-}
+
+// .plus-icon-enter {
+//   //此处是动画进入时的css设置，如果有位置移动的话，不要使用position来控制，会没有效果的，使用 transform:translateY 或者 translateX来控制
+//   transform: translate3d(0, 100%, 0);
+// }
+// .plus-icon-leave-avtive {
+//   //此处地动画飞出时的设置
+//   transform: translate3d(0, 100%, 0);
+// }
+// .plus-icon-enter-active,
+// .plus-icon-leave-active {
+//   //此处是过度过程中，一般不用设置
+//   //该句的意思是 all表示所有的css变动  在 0.8s内完成  ease-out是一个速度曲线充置
+//   transition: all 0.8s ease-out;
+// }
+
+.plus-icon-enter-active,
 .plus-icon-leave-active {
-  transition: all 1s;
+  transition: all 0.2s;
 }
+.plus-icon-enter,
 .plus-icon-leave-to {
   opacity: 0;
+  transform: translate3d(0, 100%, 0);
 }
 </style>

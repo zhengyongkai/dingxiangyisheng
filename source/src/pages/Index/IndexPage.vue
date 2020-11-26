@@ -13,12 +13,12 @@
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <div class="wx-tab">
           <div class="wx-tab-item">
-            <div class="wx-tab-img"><img src="./image/1.png" alt="" /></div>
+            <div class="wx-tab-img" @click="goto('wyspage')"><img src="./image/1.png" alt="" /></div>
             <div class="wx-tab-text">问医生</div>
             <div class="wx-tab-descrpation">按科室找医生</div>
           </div>
           <div class="wx-tab-line"></div>
-          <div class="wx-tab-item" @click="goto('wyspage')">
+          <div class="wx-tab-item" >
             <div class="wx-tab-img"><img src="./image/2.png" alt="" /></div>
             <div class="wx-tab-text">1元问</div>
             <div class="wx-tab-descrpation">三甲名医</div>
