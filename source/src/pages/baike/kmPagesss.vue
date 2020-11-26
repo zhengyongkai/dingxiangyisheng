@@ -644,7 +644,7 @@ export default {
 .km-content-tab div {
   min-width: 50px;
   text-align: center;
-  padding: 5px;
+  padding: 7px;
   border-radius: 2px;
   background-color: #FAFAFA;
   margin-right: 15px;
@@ -735,10 +735,10 @@ export default {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+   transition: opacity 0.1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+   opacity: 0;
 }
 .green {
   color: #2fac8a !important;
