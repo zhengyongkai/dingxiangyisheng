@@ -100,8 +100,12 @@
                       v-for="(i, v) in city"
                       @click="areaSelect(i)"
                       :class="form.country == i ? 'green' : ''"
+                      class="km-menu-items-right-item"
                     >
-                      {{ i }}
+                      <div>{{ i }}</div>
+                      <div class="km-city-check" v-if="form.country == i">
+                        <i class="van-icon van-icon-success"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -169,6 +173,7 @@
                     <div class="font-middle-nomal">
                       主任医生
                     </div>
+                    <div class="doctor-hospital" v-if="i <= 2">三甲</div>
                   </div>
                   <div class="doctor-ky">
                     <div class="font-middle-nomal">
@@ -201,6 +206,9 @@
                       专业性优秀
                     </div>
                   </div>
+                  <div class="doctor-coupon">
+                    <div><dx-coupon></dx-coupon></div>
+                  </div>
                   <div class="doctor-price">
                     <div>
                       图文 ￥79
@@ -220,8 +228,10 @@
   </div>
 </template>
 <script>
+import dxCoupon from "../../components/dxElement/dxCoupon/dxCoupon.vue";
 import { country } from "../../mock/country";
 export default {
+  components: { dxCoupon },
   data() {
     return {
       showMenuCover: false,
@@ -433,6 +443,15 @@ export default {
             font-weight: 600;
             margin-right: 6px;
           }
+          .doctor-hospital {
+            font-size: 12px;
+            margin-left: 10px;
+            box-sizing: border-box;
+            padding: 2px;
+            background: #e6b76e;
+            border-radius: 2px;
+            color: #fff;
+          }
         }
         .doctor-ky {
           display: flex;
@@ -445,21 +464,22 @@ export default {
         .doctor-decrease {
           margin-top: 12px;
           font-size: 12px;
-          color: #999;
+          color: #646566;
         }
 
         .doctor-pingjia {
           margin-top: 12px;
           .doctor-star {
             display: flex;
+            align-items: center;
             font-size: 12px;
             i,
             span {
-              color: #E7AF58;
+              color: #ea9107;
               margin-right: 5px;
             }
             div {
-              color: #999;
+              color: #646566;
               margin-right: 5px;
             }
           }
@@ -473,13 +493,17 @@ export default {
             background-color: #fafafa;
             font-size: 12px;
             padding: 1px 5px;
-            color: #E7AF58;
+            color: #ea9107;
           }
+        }
+        .doctor-coupon {
+          margin-top: 10px;
+          //  transform: scale(0.9);
         }
         .doctor-price {
           display: flex;
           align-items: center;
-          margin-top: 20px;
+          margin-top: 10px;
           div {
             margin-right: 12px;
             font-size: 14px;
@@ -631,7 +655,7 @@ export default {
 }
 .countrySelect {
   background-color: #fff;
-  color: #16dc16;
+  color: #2fac8a ;
 }
 .area {
   padding: 0 10px;
@@ -642,11 +666,11 @@ export default {
   flex-wrap: wrap;
 }
 .km-content-tab div {
-  min-width: 50px;
+  min-width: 40px;
   text-align: center;
-  padding: 7px;
+  padding: 8px;
   border-radius: 2px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   margin-right: 15px;
   margin-bottom: 15px;
   color: #000;
@@ -735,15 +759,15 @@ export default {
 }
 .fade-enter-active,
 .fade-leave-active {
-   transition: opacity 0.5s;
+  transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-   opacity: 0;
+  opacity: 0;
 }
 .green {
   color: #2fac8a !important;
 }
-.greenTab{
+.greenTab {
   color: #2fac8a !important;
   background: #ddf8ea !important;
 }
@@ -760,7 +784,7 @@ export default {
     left: 0;
     padding: 0;
     overflow: scroll;
-    width: 100px;
+    width: 150px;
     background: #eee;
   }
   .km-menu-items-left div {
@@ -771,7 +795,7 @@ export default {
   .km-menu-items-right {
     position: absolute;
     right: 0;
-    left: 100px;
+    left: 150px;
     padding: 0 10px;
     z-index: 999;
     top: 0;
@@ -779,6 +803,12 @@ export default {
     overflow: scroll;
     background: #fff;
     flex: 1;
+    .km-menu-items-right-item {
+      display: flex;
+      .km-city-check {
+        margin-left: auto;
+      }
+    }
   }
   .km-menu-items-right div {
     height: 50px;

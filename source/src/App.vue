@@ -39,7 +39,7 @@ export default {
 
 <style>
 @font-face {
-  font-family: "fangping";
+  font-family: "fangping" ;
   src: url("~@/assets/fonts/fangping.ttf");
   /* font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
     Helvetica, Segoe UI, Arial, Roboto, "PingFang SC", "miui",

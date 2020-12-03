@@ -13,6 +13,7 @@ import picActionSheet from './dxChoosePic'
 import dxImagePreview from './dxImagePreview'
 import dxSearchTabbar from './dxSearchTabbar'
 import dxPullFresh from './dxPullFresh'
+import dxCoupon from './dxCoupon'
 import "vant/lib/index.css";
 import "vant/lib/icon/local.css";
 const components = [
@@ -30,7 +31,8 @@ const components = [
   picActionSheet,
   dxImagePreview,
   dxSearchTabbar,
-  dxPullFresh
+  dxPullFresh,
+  dxCoupon
 ];
 export default {
   install(Vue) {
