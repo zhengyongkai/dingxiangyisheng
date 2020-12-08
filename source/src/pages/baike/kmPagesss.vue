@@ -160,7 +160,7 @@
       <div class="km-body">
         <dxScroll class="km-body">
           <div class="doctor-content">
-            <div v-for="(v, i) in 10" :key="i" class="doctor-items">
+            <div v-for="(v, i) in 4" :key="i" class="doctor-items">
               <div class="doctor-item">
                 <div class="doctor-img">
                   <img src="@/assets/mockimg/zyk.jpg" alt="" />
@@ -338,7 +338,15 @@ export default {
       ]
     };
   },
+  mounted(){
+    this.getDoctorList();
+  },
   methods: {
+    getDoctorList(){
+      this.$api.getDoctorList().then((res)=>{
+        console.log(res)
+      })
+    },
     choosePreparationList(v, i) {
       if (this.form["preparation"][v] == i) {
         this.form["preparation"][v] = null;
@@ -784,7 +792,7 @@ export default {
     left: 0;
     padding: 0;
     overflow: scroll;
-    width: 150px;
+    width: 120px;
     background: #eee;
   }
   .km-menu-items-left div {
@@ -795,7 +803,7 @@ export default {
   .km-menu-items-right {
     position: absolute;
     right: 0;
-    left: 150px;
+    left: 120px;
     padding: 0 10px;
     z-index: 999;
     top: 0;
