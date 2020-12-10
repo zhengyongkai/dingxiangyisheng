@@ -158,64 +158,54 @@
         </transition>
       </div>
       <div class="km-body">
-        <dxScroll class="km-body">
+        <dxScroll class="km-body" :pullup="true" ref="scroll">
           <div class="doctor-content">
-            <div v-for="(v, i) in 4" :key="i" class="doctor-items">
+            <div v-for="(v, i) in doctorList" :key="i" class="doctor-items">
               <div class="doctor-item">
                 <div class="doctor-img">
-                  <img src="@/assets/mockimg/zyk.jpg" alt="" />
+                  <img :src="v.img" alt="" />
                 </div>
                 <div class="doctor-info">
                   <div class="doctor-top">
                     <div class="doctor-name">
-                      付国军
+                      {{ v.name }}
                     </div>
                     <div class="font-middle-nomal">
                       主任医生
                     </div>
-                    <div class="doctor-hospital" v-if="i <= 2">三甲</div>
+                    <div class="doctor-hospital" v-if="v.hosLevel">三甲</div>
                   </div>
                   <div class="doctor-ky">
                     <div class="font-middle-nomal">
-                      皮肤性病科
+                      {{ v.porject }}
                     </div>
                     <div class="font-middle-nomal">
-                      沧州市任命医院
+                      {{ v.doctor_hospital }}
                     </div>
                   </div>
                   <div class="doctor-decrease">
-                    擅长：坐疮，尖锐湿疣，甲癣，足癣，股癣，脂溢性皮炎，过敏
+                    擅长：{{ v.hobby.join("，") }}
                   </div>
                   <div class="doctor-pingjia">
                     <div class="doctor-star">
                       <afIcon class="iconfont icon-star2" size="sIcon" />
-                      <span>5.00</span>
-                      <div>月回答 650</div>
-                      <div>月处方 650</div>
-                      <div>12分钟相应</div>
+                      <span>{{ v.star }}</span>
+                      <div>月回答 {{ v.monthAnswer }}</div>
+                      <div>月处方 {{ v.monthChufang }}</div>
+                      <div>{{ v.AnswerTime }}分钟相应</div>
                     </div>
                   </div>
                   <div class="doctor-tab">
-                    <div>
-                      教授
-                    </div>
-                    <div>
-                      快速相应
-                    </div>
-                    <div>
-                      专业性优秀
+                    <div v-for="(tags, k) in v.tags" :key="k">
+                      {{ tags }}
                     </div>
                   </div>
-                  <div class="doctor-coupon">
+                  <div class="doctor-coupon" v-if="v.coupon">
                     <div><dx-coupon></dx-coupon></div>
                   </div>
                   <div class="doctor-price">
-                    <div>
-                      图文 ￥79
-                    </div>
-                    <div>
-                      电话 ￥95
-                    </div>
+                    <div>图文 ￥{{ v.picPrice }}</div>
+                    <div>电话 ￥{{ v.callPrice }}</div>
                     <span>问医生</span>
                   </div>
                 </div>
@@ -240,6 +230,7 @@ export default {
       country: country,
       countrySelect: "",
       isLoading: false,
+      doctorList: [],
       city: [],
       form: {
         composite: 0,
@@ -338,14 +329,15 @@ export default {
       ]
     };
   },
-  mounted(){
+  mounted() {
     this.getDoctorList();
   },
   methods: {
-    getDoctorList(){
-      this.$api.getDoctorList().then((res)=>{
-        console.log(res)
-      })
+    getDoctorList() {
+      this.$api.getDoctorList().then(res => {
+        this.doctorList = res.data.data.list;
+        this.$refs.scroll.refresh();
+      });
     },
     choosePreparationList(v, i) {
       if (this.form["preparation"][v] == i) {
@@ -404,6 +396,7 @@ export default {
       this.form.preparation = {};
     },
     submitPreparationList() {
+      this.getDoctorList();
       this.closeToast();
     }
   }
@@ -421,7 +414,7 @@ export default {
   bottom: 0;
   padding: 0;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   // .doctor-content::after {
   //   content: "";
   //   border: 1px solid red;
@@ -663,7 +656,7 @@ export default {
 }
 .countrySelect {
   background-color: #fff;
-  color: #2fac8a ;
+  color: #2fac8a;
 }
 .area {
   padding: 0 10px;
