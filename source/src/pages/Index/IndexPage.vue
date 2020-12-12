@@ -222,7 +222,7 @@ export default {
  position: fixed;
     left: 0;
     top: 0;
-      padding: 0 10px;
+    padding: 0 12px;
     margin-bottom: 60px;
     top: 60px;
     right: 0;

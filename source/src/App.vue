@@ -2,35 +2,42 @@
   <div id="app">
     <router-view />
     <Tabbar v-show="tabBarShow" class="tabbar"></Tabbar>
+    <adsToast v-if="showAdv" v-bind:showAdv.sync='showAdv'></adsToast>
   </div>
 </template>
 
 <script>
 import Tabbar from "@/components/dxTabbar";
+import adsToast from "@/pages/adsToast/adsToast";
 export default {
   name: "App",
   data() {
     return {
-      tabBarShow: true
+      tabBarShow: true,
+      showAdv:true
     };
   },
   components: {
-    Tabbar
+    Tabbar,
+    [adsToast.name]:adsToast
   },
   watch: {
-    $route(to, from) {
-      console.log("当前路由to.path: " + to.path);
-      // Vue.prototype.$fromPage = from.path;
-      //判断是否显示tabbar
-      if (
-        to.path == "/" ||
-        to.path == "/baike" ||
-        to.path == "/findPage" ||
-        to.path == "/home"
-      ) {
-        this.tabBarShow = true;
-      } else {
-        this.tabBarShow = false;
+    $route: {
+      immediate: true,
+      handler: function(to, from) {
+        console.log("当前路由to.path: " + to.path);
+        // Vue.prototype.$fromPage = from.path;
+        //判断是否显示tabbar
+        if (
+          to.path == "/" ||
+          to.path == "/baike" ||
+          to.path == "/findPage" ||
+          to.path == "/home"
+        ) {
+          this.tabBarShow = true;
+        } else {
+          this.tabBarShow = false;
+        }
       }
     }
   }
@@ -39,7 +46,7 @@ export default {
 
 <style>
 @font-face {
-  font-family: "fangping" ;
+  font-family: "fangping";
   src: url("~@/assets/fonts/fangping.ttf");
   /* font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
     Helvetica, Segoe UI, Arial, Roboto, "PingFang SC", "miui",

@@ -45,6 +45,8 @@ export default {
             // callback(res.msg);
             that.scrollText = 2;
           }
+        }).catch(()=>{
+          that.scrollText = 2;
         });
     }
   }

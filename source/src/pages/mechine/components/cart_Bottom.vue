@@ -15,7 +15,7 @@
     </div>
     <transition name="plus-icon">
       <div class="shopCart" v-if="showBottom">
-        <div class="dx-overlay" @click="showBottom = false"></div>
+        <div class="dx-overlay" @click="$emit('update:showBottom',false)"></div>
         <div
           class="shopCartContent"
           v-if="showBottom"
@@ -99,7 +99,7 @@ export default {
      this.$emit('update:showBottom',!this.showBottom)
     },
     handleCartShow() {
-      this.showBottom = false;
+       this.$emit('update:showBottom',false)
     },
     goto(path) {
       this.$router.push("/" + path);

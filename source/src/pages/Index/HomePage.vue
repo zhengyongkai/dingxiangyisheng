@@ -75,7 +75,7 @@ export default {
     };
   },
   components: {
-    [dxCell.name]: dxCell
+    [dxCell.name]: dxCell,
   }
 };
 </script>

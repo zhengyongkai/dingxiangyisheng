@@ -118,7 +118,7 @@ export default {
 <style lang="scss" scoped>
 .scrollBottom {
   color: #969799;
-  line-height: 50px;
+  line-height: 40px;
   height: 50px;
   text-align: center;
 }

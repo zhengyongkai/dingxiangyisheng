@@ -36,7 +36,7 @@
         </div>
         <div class="wys-top-tab">
           <div class="wys-top-tab-img">
-            <img src="../Index/image/2.png" alt="" />
+            <img src="../Index/image/3.png" alt="" />
           </div>
           <div>
             <div class="wys-top-tab-title">
@@ -183,7 +183,7 @@ export default {
   }
 }
 .wx-tk {
-  margin-top: 16px;
+  margin-top: 32px;
   font-size: 18px;
   margin-bottom: 10px;
   margin-left: 5px;
