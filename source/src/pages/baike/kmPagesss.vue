@@ -158,7 +158,13 @@
         </transition>
       </div>
       <div class="km-body">
-        <dxScroll class="km-body" :pullup="true" ref="scroll">
+        <dxScroll
+          class="km-body"
+          :pullup="true"
+          ref="scroll"
+          @scrollToEnd="pullRefresh"
+          :scrollText="scrollText"
+        >
           <div class="doctor-content">
             <div v-for="(v, i) in doctorList" :key="i" class="doctor-items">
               <div class="doctor-item">
@@ -220,8 +226,10 @@
 <script>
 import dxCoupon from "../../components/dxElement/dxCoupon/dxCoupon.vue";
 import { country } from "../../mock/country";
+import mixin from "@u/mixin";
 export default {
   components: { dxCoupon },
+  mixins: [mixin],
   data() {
     return {
       showMenuCover: false,
@@ -326,7 +334,8 @@ export default {
         "响应时间",
         "价格从高到低",
         "价格从低到高"
-      ]
+      ],
+      getTableURL: this.$api.getDoctorList()
     };
   },
   mounted() {
@@ -334,8 +343,11 @@ export default {
   },
   methods: {
     getDoctorList() {
-      this.$api.getDoctorList().then(res => {
-        this.doctorList = res.data.data.list;
+      this.$refs.scroll.refresh();
+      this.getList(res => {
+        for (let i of res) {
+          this.doctorList.push(i);
+        }
         this.$refs.scroll.refresh();
       });
     },
@@ -345,6 +357,7 @@ export default {
       } else {
         this.form["preparation"][v] = i;
       }
+
       this.$forceUpdate();
     },
     closeToast() {
@@ -352,6 +365,10 @@ export default {
     },
     chooseOne(i, type) {
       this.form[type] = i;
+      this.form.project = i;
+      this.doctorList = []
+      this.page.pageNum = 1;
+      this.getDoctorList();
       this.closeToast();
     },
     onRefresh() {
@@ -398,6 +415,12 @@ export default {
     submitPreparationList() {
       this.getDoctorList();
       this.closeToast();
+    },
+    pullRefresh() {
+      console.log("下拉了");
+      this.page.pageNum += 1;
+      
+      this.getDoctorList();
     }
   }
 };

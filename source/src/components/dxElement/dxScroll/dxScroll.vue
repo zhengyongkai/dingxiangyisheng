@@ -1,13 +1,24 @@
 <template>
   <div ref="wrapper">
-    <slot></slot>
+    <div>
+      <slot></slot>
+      <!-- 加载显示，可以替换别的 -->
+      <div class="scrollBottom" v-if="pullup">{{ showText[scrollText] }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 import BScroll from "better-scroll";
+import _ from "lodash";
 export default {
   name: "dxScroll",
+  data() {
+    return {
+      scrollY: 0,
+      showText: ["上拉加载更多", "正在加载...", "暂无数据"]
+    };
+  },
   props: {
     probeType: {
       type: Number,
@@ -25,6 +36,7 @@ export default {
       type: Boolean,
       default: false
     },
+    //是否开启加载
     pullup: {
       type: Boolean,
       default: false
@@ -32,12 +44,16 @@ export default {
     refreshDelay: {
       type: Number,
       default: 20
+    },
+    scrollText: {
+      type: Number,
+      default: 0
     }
   },
   mounted() {
     setTimeout(() => {
       this._initScroll();
-      this.refresh()
+      this.refresh();
     });
   },
   methods: {
@@ -59,7 +75,14 @@ export default {
       if (this.pullup) {
         this.scroll.on("scrollEnd", () => {
           if (this.scroll.y <= this.scroll.maxScrollY + 50) {
-            this.$emit("scrollToEnd");
+            //发生上拉事件触发
+            //实现上移显示
+            //这个是为了防止连续滑动导致列表加载错误,防止如果只有一条数据会自动执行改函数
+              if (this.scroll.maxScrollY == this.scrollY || this.scroll.maxScrollY == 0) {
+                return;
+              }
+              this.scrollY = this.scroll.maxScrollY;
+              this.$emit("scrollToEnd");
           }
         });
       }
@@ -71,9 +94,9 @@ export default {
       this.scroll && this.scroll.disable();
     },
     refresh() {
-      setTimeout(()=>{
-         this.scroll && this.scroll.refresh();
-      },100)
+      setTimeout(() => {
+        this.scroll && this.scroll.refresh();
+      }, 100);
     },
     scrollTo() {
       this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments);
@@ -92,4 +115,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.scrollBottom {
+  color: #969799;
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+}
+</style>
