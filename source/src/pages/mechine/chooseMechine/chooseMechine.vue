@@ -194,7 +194,7 @@ export default {
       this.getTotal();
       this.$forceUpdate();
     },
-    goodsListAdd(v, i) {
+    goodsListAdd(v, i) {  
       this.list[v].num = this.list[v].num + 1;
       this.$forceUpdate();
       this.getTotal();
