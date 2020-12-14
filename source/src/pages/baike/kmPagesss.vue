@@ -536,7 +536,7 @@ export default {
             margin-left: auto;
             background-color: #f9f9f9;
             text-decoration: solid;
-            color: #00e96f;
+            color: #31B794;
             border-radius: 5px;
             padding: 3px 8px;
             font-size: 14px;
@@ -551,8 +551,6 @@ export default {
   height: 46px;
 }
 
-.km-page {
-}
 .km-search {
   background: #fff;
   padding: 12px 12px 10px 12px;

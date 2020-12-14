@@ -86,7 +86,7 @@ export default {
       border-radius: 16px;
       height: 380px;
       display: flex;
-      flex-direction: column;
+      flex-direction: column; 
       .adv-top {
         padding: 10px 0;
         height: 60%;

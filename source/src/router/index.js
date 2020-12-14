@@ -9,6 +9,7 @@ import kmPage from "@/pages/baike/kmPagesss";
 import phoneCallPage from "@/pages/phoneCall/index"; 
 import mechine from '@/pages/mechine/index'
 import chooseMechine from '@/pages/mechine/chooseMechine/chooseMechine'
+import kmDocInfo from '@/pages/baike/kmDocInfo/KmDocInfo'
 Vue.use(Router);
 
 export default new Router({
@@ -56,6 +57,11 @@ export default new Router({
       path:"/mechine/chooseMechine",
       name:'chooseMechine',
       component:chooseMechine
+    },
+    {
+      path:"/kmPage/kmDocInfo",
+      name:'kmDocInfo',
+      component:kmDocInfo
     }
   ]
 });

@@ -3,7 +3,13 @@
     <div>
       <slot></slot>
       <!-- 加载显示，可以替换别的 -->
-      <div class="scrollBottom" v-if="pullup">{{ showText[scrollText] }}</div>
+      <div class="scrollBottom" v-if="pullup">
+        <img
+          style="width:20px;line-height:20px;margin-right:5px"
+          v-if="scrollText==1"
+          src="@/assets/loading/loading.gif"
+        />{{ showText[scrollText] }}
+      </div>
     </div>
   </div>
 </template>
@@ -16,7 +22,7 @@ export default {
   data() {
     return {
       scrollY: 0,
-      showText: ["上拉加载更多", "正在加载...", "暂无数据"]
+      showText: ["上拉加载更多", "正在加载...", "暂无更多"]
     };
   },
   props: {
@@ -78,11 +84,14 @@ export default {
             //发生上拉事件触发
             //实现上移显示
             //这个是为了防止连续滑动导致列表加载错误,防止如果只有一条数据会自动执行改函数
-              if (this.scroll.maxScrollY == this.scrollY || this.scroll.maxScrollY == 0) {
-                return;
-              }
-              this.scrollY = this.scroll.maxScrollY;
-              this.$emit("scrollToEnd");
+            if (
+              this.scroll.maxScrollY == this.scrollY ||
+              this.scroll.maxScrollY == 0
+            ) {
+              return;
+            }
+            this.scrollY = this.scroll.maxScrollY;
+            this.$emit("scrollToEnd");
           }
         });
       }
@@ -121,5 +130,8 @@ export default {
   line-height: 40px;
   height: 50px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
