@@ -1,5 +1,6 @@
 <!--  -->
 <template>
+ <transition name="slide" mode="out-in">
   <div class="km-page">
     <div class="km-title">
       <dxHeader>
@@ -90,6 +91,7 @@
       </dxScroll>
     </div>
   </div>
+ </transition>
 </template>
 <script>
 export default {

@@ -168,7 +168,7 @@
           <div class="doctor-content">
             <div v-for="(v, i) in doctorList" :key="i" class="doctor-items">
               <div class="doctor-item">
-                <div class="doctor-img">
+                <div class="doctor-img" @click="$router.push('/kmPage/kmDocInfo')">
                   <img :src="v.img" alt="" />
                 </div>
                 <div class="doctor-info">
@@ -890,4 +890,5 @@ export default {
     margin: 5px 10px 5px 0;
   }
 }
+
 </style>
