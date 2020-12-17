@@ -6,7 +6,7 @@
       <div class="scrollBottom" v-if="pullup">
         <img
           style="width:20px;line-height:20px;margin-right:5px"
-          v-if="scrollText==1"
+          v-if="scrollText == 1"
           src="@/assets/loading/loading.gif"
         />{{ showText[scrollText] }}
       </div>
@@ -63,6 +63,15 @@ export default {
     });
   },
   methods: {
+    Debounce(fn, delay = 500) {
+      let timeout = null;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          fn.apply(this, args);
+        }, delay);
+      };
+    },
     _initScroll() {
       if (!this.$refs.wrapper) {
         return;
@@ -74,9 +83,15 @@ export default {
 
       if (this.listenScroll) {
         let _this = this;
-        this.scroll.on("scroll", pos => {
-          _this.$emit("scroll", pos);
-        });
+
+        this.scroll.on(
+          "scroll",
+          this.Debounce(() => {
+            //实现上移
+            _this.$emit("scroll", pos);
+          }),
+          500
+        );
       }
       if (this.pullup) {
         this.scroll.on("scrollEnd", () => {
