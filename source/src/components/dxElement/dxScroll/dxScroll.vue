@@ -78,19 +78,25 @@ export default {
       }
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
-        click: this.click
+        click: this.click,
+        autoBlur:false
       });
 
       if (this.listenScroll) {
         let _this = this;
-
         this.scroll.on(
           "scroll",
-          this.Debounce(() => {
-            //实现上移
-            _this.$emit("scroll", pos);
-          }),
-          500
+          _.debounce(
+            pos => {
+              //实现上移
+              _this.$emit("scroll", pos);
+            },
+            50,
+            {
+              leading: true,
+              trailing: false
+            }
+          )
         );
       }
       if (this.pullup) {

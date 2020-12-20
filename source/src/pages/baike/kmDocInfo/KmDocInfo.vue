@@ -3,7 +3,7 @@
   <transition name="slide" mode="out-in">
     <div class="km-page">
       <div class="km-title">
-        <dxHeader>
+        <dxHeader :titleName="showTitle?'李宗辉':''">
           <div slot="right">
             <afIcon
               class="iconfont icon-share rightIcon"
@@ -13,7 +13,7 @@
         </dxHeader>
       </div>
       <div>
-        <dxScroll class="km-body" :listenScroll='true' @scroll='scroll' :probeType='2'>
+        <dxScroll class="km-body" :listenScroll='true' @scroll='scroll' :probeType='3'>
           <div class="km-info">
             <div class="km-info-top">
               <div>
@@ -143,7 +143,8 @@ export default {
         "详细清楚（120）",
         "感谢医生（1072）",
         "敬业负责（605）"
-      ]
+      ],
+      showTitle:false
     };
   },
   props: [],
@@ -153,6 +154,11 @@ export default {
   methods: {
     scroll(res){
         console.log(res)
+        if(res.y <= -50){
+          this.showTitle = true
+        }else{
+          this.showTitle = false
+        }
     }
   }
 };
@@ -385,7 +391,7 @@ export default {
     }
   }
   .km-info-comment {
-    margin-top: 36px;
+    margin: 36px 0;
     > :first-child {
       margin-bottom: 24px;
     }
@@ -459,11 +465,11 @@ export default {
         margin-top: 16px;
         width: 130px;
         border-radius: 10px;
-        margin-bottom: 24px;
         padding: 5px 8px;
         text-align: center;
         text-decoration: underline;
         font-family: "微软雅黑";
+        margin-bottom: 36px;
       }
   }
 }
