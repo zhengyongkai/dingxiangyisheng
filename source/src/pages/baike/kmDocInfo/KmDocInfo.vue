@@ -3,7 +3,7 @@
   <transition name="slide" mode="out-in">
     <div class="km-page">
       <div class="km-title">
-        <dxHeader :titleName="showTitle?'李宗辉':''">
+        <dxHeader :titleName="showTitle ? '李宗辉' : ''">
           <div slot="right">
             <afIcon
               class="iconfont icon-share rightIcon"
@@ -13,7 +13,12 @@
         </dxHeader>
       </div>
       <div>
-        <dxScroll class="km-body" :listenScroll='true' @scroll='scroll' :probeType='3'>
+        <dxScroll
+          class="km-body"
+          :listenScroll="true"
+          @scroll="scroll"
+          :probeType="3"
+        >
           <div class="km-info">
             <div class="km-info-top">
               <div>
@@ -66,6 +71,37 @@
               <afIcon class="iconfont icon-right" size="sIcon" />
             </div>
           </div>
+          <div class="km-info-column">
+            <div class="km-titletext">医生专栏</div>
+            <div class="column-tabs" ref="scroll">
+              <div class="scroll">
+                <div v-for="(i, v) in column_list" :key="v" class="column-tab">
+                  <div class="column-top">
+                    <div class="top-img">
+                      <img src="https://picsum.photos/705" alt="" />
+                    </div>
+                    <div>
+                      <div v-for="(items, key) in i.tab" :key="key">
+                        #{{ items }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column-title">
+                    <div>{{ i.title }}</div>
+                  </div>
+                  <div class="column-answer">
+                    <div v-for="(items, key) in i.problems" :key="key">
+                      <div><img src="https://picsum.photos/705" alt="" /></div>
+                      <div>{{ items }}</div>
+                    </div>
+                  </div>
+                  <div class="column-more">
+                    查看更多3个问题 >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="km-info-major">
             <div class="km-titletext">擅长方向</div>
             <div class="major-tabs">
@@ -99,8 +135,15 @@
             <div class="comment-info">
               <div v-for="(v, i) in 2" :key="i">
                 <div class="comment-top">
-                  <div class="comment-name">J***{{i}}</div>
-                  <div class="comment-star"> <afIcon v-for="(v1, i1) in v" :key="i1" class="iconfont icon-star1" size="sIcon" /></div>
+                  <div class="comment-name">J***{{ i }}</div>
+                  <div class="comment-star">
+                    <afIcon
+                      v-for="(v1, i1) in v"
+                      :key="i1"
+                      class="iconfont icon-star1"
+                      size="sIcon"
+                    />
+                  </div>
                 </div>
                 <div class="comment-text">
                   谢谢李医生！
@@ -120,6 +163,7 @@
   </transition>
 </template>
 <script>
+import BScroll from "better-scroll";
 export default {
   data() {
     return {
@@ -144,21 +188,65 @@ export default {
         "感谢医生（1072）",
         "敬业负责（605）"
       ],
-      showTitle:false
+      showTitle: false,
+      column_list: [
+        {
+          tab: ["脱发", "便秘"],
+          title: "头发油腻引起的脱发。应该怎么防止头发脱落",
+          problems: [
+            "医生您好，我大概从两周开始脱发严重，怎么ssss办",
+            "医生您好，我大概从两周开始脱发严重，怎么办"
+          ]
+        },
+        {
+          tab: ["脱发", "便秘"],
+          title: "头发油腻引起的脱发。应该怎么防止头发脱落",
+          problems: [
+            "医生您好，我大概从两周开始脱发严重，怎么办",
+            "医生您好，我大概从两周开始脱发严重，怎么办"
+          ]
+        },
+        {
+          tab: ["脱发", "便秘"],
+          title: "头发油腻引起的脱发。应该怎么防止头发脱落",
+          problems: [
+            "医生您好，我大概从两周开始脱发严重，怎么办",
+            "医生您好，我大概从两周开始脱发严重，怎么办"
+          ]
+        }
+      ]
     };
   },
   props: [],
   components: {},
   created() {},
-  mounted() {},
+  mounted() {
+    this.initVerScroll();
+  },
   methods: {
-    scroll(res){
-        console.log(res)
-        if(res.y <= -50){
-          this.showTitle = true
-        }else{
-          this.showTitle = false
-        }
+    initVerScroll() {
+      this.$nextTick(() => {
+        let width =
+          this.column_list.length * 300 + this.column_list.length * 10; // 修改宽度
+        document.getElementsByClassName("scroll")[0].style.width = width + "px"; // 修改滚动区域的宽度
+        this.scroll = new BScroll(this.$refs.scroll, {
+          probeType: 1,
+          click: true,
+          startX: 0,
+          scrollX: true,
+          autoBlur: false,
+          stopPropagation: true,
+          eventPassthrough: "vertical"
+        });
+      });
+    },
+    scroll(res) {
+      console.log(res);
+      if (res.y <= -50) {
+        this.showTitle = true;
+      } else {
+        this.showTitle = false;
+      }
     }
   }
 };
@@ -302,6 +390,105 @@ export default {
       }
     }
   }
+  .km-info-column {
+   
+    align-items: center;
+    margin: 48px 0;
+    height: 250px;
+    > :first-child {
+      @extend .km-titletext;
+      margin-bottom: 10px;
+    }
+    > :last-child {
+      overflow: hidden;
+      touch-action: none;
+      margin-left: -10px;
+      margin-top: 20px;
+      .column-tab {
+        width: 300px;
+        display: inline-block;
+        height: 200px;
+        border-radius: 10px;
+        background: #fff;
+        border: 1px solid #ebeef5;
+        padding: 16px 8px;
+        box-sizing: border-box;
+        margin: 0 5px;
+        box-shadow: 6px 7px 5px #eee;
+        .column-top {
+          display: flex;
+          height: 28px;
+          align-items: center;
+
+          img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+          }
+          > :first-child {
+            padding-right: 5px;
+            display: flex;
+            align-items: center;
+          }
+          > :last-child {
+            color: #9d8e1f;
+            display: flex;
+            div {
+              margin-right: 5px;
+              font-size: 14px;
+              font-weight: lighter;
+            }
+          }
+          .top-img::after {
+            content: "";
+            margin: 0 8px;
+            height: 16px;
+            border-right: 1px solid rgb(185, 185, 185);
+          }
+        }
+        .column-title {
+          div {
+            margin-top: 10px;
+            text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.1);
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+        .column-answer {
+          margin-top: 16px;
+          img {
+            width: 20px;
+            border-radius: 50%;
+            height: 20px;
+            line-height: 24px;
+            margin: 2px 0;
+          }
+          > div {
+            margin-bottom: 5px;
+            display: flex;
+            overflow: hidden;
+            padding: 0 1px;
+            align-items: center;
+            > :last-child {
+              text-overflow: -o-ellipsis-lastline;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              margin-left: 5px;
+              font-size: 12px;
+              font-weight: lighter;
+            }
+          }
+        }
+        .column-more{
+          margin-top: 10px;
+          font-size: 12px;
+          color: #999;
+        }
+      }
+    }
+  }
   .km-info-major {
     margin-top: 48px;
     > :first-child {
@@ -422,11 +609,11 @@ export default {
           margin-right: 10px;
         }
       }
-      .comment-star{
+      .comment-star {
         display: flex;
-        i{
+        i {
           font-size: 12px !important;
-          color: #ea9107;;
+          color: #ea9107;
           margin-right: 2px;
         }
       }
@@ -455,22 +642,21 @@ export default {
         left: 0;
         border-bottom: 1px solid #eee;
       }
-     
     }
-     .comment-items-more {
-        margin: 0 auto;
-        background: #eee;
-        color: #31b794;
-        font-size: 14px;
-        margin-top: 16px;
-        width: 130px;
-        border-radius: 10px;
-        padding: 5px 8px;
-        text-align: center;
-        text-decoration: underline;
-        font-family: "微软雅黑";
-        margin-bottom: 36px;
-      }
+    .comment-items-more {
+      margin: 0 auto;
+      background: #eee;
+      color: #31b794;
+      font-size: 14px;
+      margin-top: 16px;
+      width: 130px;
+      border-radius: 10px;
+      padding: 5px 8px;
+      text-align: center;
+      text-decoration: underline;
+      font-family: "微软雅黑";
+      margin-bottom: 36px;
+    }
   }
 }
 .km-tag {

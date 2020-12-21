@@ -79,7 +79,9 @@ export default {
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
         click: this.click,
-        autoBlur:false
+        autoBlur: false,
+        scrollX: false,
+        stopPropagation: false
       });
 
       if (this.listenScroll) {
