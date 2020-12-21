@@ -227,7 +227,7 @@ export default {
     initVerScroll() {
       this.$nextTick(() => {
         let width =
-          this.column_list.length * 300 + this.column_list.length * 10; // 修改宽度
+          this.column_list.length * 300 + this.column_list.length * 30; // 修改宽度
         document.getElementsByClassName("scroll")[0].style.width = width + "px"; // 修改滚动区域的宽度
         this.scroll = new BScroll(this.$refs.scroll, {
           probeType: 1,
@@ -400,19 +400,19 @@ export default {
       margin-bottom: 10px;
     }
     > :last-child {
-      overflow: hidden;
+      // overflow: hidden;
       touch-action: none;
       margin-left: -10px;
       margin-top: 20px;
       .column-tab {
         width: 300px;
         display: inline-block;
-        height: 200px;
+        height: 180px;
         border-radius: 10px;
         background: #fff;
         border: 1px solid #ebeef5;
-        padding: 16px 8px;
-        box-sizing: border-box;
+        padding: 16px 8px 5px 8px;
+        box-sizing: content-box;
         margin: 0 5px;
         box-shadow: 6px 7px 5px #eee;
         .column-top {
