@@ -261,7 +261,7 @@ export default {
   right: 0;
   top: 46px;
   .km-info {
-    padding-top: 46px;
+    padding-top: 30px;
     .km-info-top {
       display: flex;
       > :first-child {
@@ -379,6 +379,7 @@ export default {
     > :last-child {
       font-size: 16px;
       display: flex;
+      font-weight: lighter;
       align-items: center;
       color: #31b794;
       margin-left: auto;

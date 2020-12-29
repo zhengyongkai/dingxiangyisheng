@@ -10,6 +10,7 @@ import phoneCallPage from "@/pages/phoneCall/index";
 import mechine from '@/pages/mechine/index'
 import chooseMechine from '@/pages/mechine/chooseMechine/chooseMechine'
 import kmDocInfo from '@/pages/baike/kmDocInfo/KmDocInfo'
+import dxOpAnswer from '@/pages/baike/dxOpAnswer/dxOpAnswer'
 Vue.use(Router);
 
 export default new Router({
@@ -62,6 +63,11 @@ export default new Router({
       path:"/kmPage/kmDocInfo",
       name:'kmDocInfo',
       component:kmDocInfo
+    },
+    {
+      path:"/dxOp/dxOpAnswer",
+      name:'dxOpAnswer',
+      component:dxOpAnswer
     }
   ]
 });
